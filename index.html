@@ -8,172 +8,199 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-        :root { --army-red: #7a0000; --gold: #c5a059; --black: #050505; --panel: #111111; --danger: #ff0000; }
-        body { background: var(--black); color: #e0e0e0; font-family: 'Cairo', sans-serif; margin: 0; line-height: 1.6; }
+        :root { --army-red: #8b0000; --gold: #d4af37; --black: #0a0a0a; --panel: #161616; }
+        body { background: var(--black); color: #f0f0f0; font-family: 'Cairo', sans-serif; margin: 0; line-height: 1.6; }
         
-        nav { background: #000; padding: 15px; border-bottom: 3px solid var(--army-red); display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 1000; }
-        nav button { background: none; color: #fff; border: 1px solid var(--army-red); padding: 8px 15px; cursor: pointer; font-weight: bold; border-radius: 5px; transition: 0.3s; }
-        nav button:hover { background: var(--army-red); transform: translateY(-2px); }
+        /* Navigation */
+        nav { background: #000; padding: 15px; border-bottom: 4px solid var(--army-red); display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; position: sticky; top: 0; z-index: 1000; }
+        nav button { background: transparent; color: #fff; border: 1px solid var(--gold); padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 4px; transition: 0.3s; }
+        nav button:hover { background: var(--army-red); border-color: var(--army-red); }
 
-        .section { display: none; padding: 30px 15px; max-width: 1200px; margin: auto; animation: fadeIn 0.5s ease; }
+        .section { display: none; padding: 30px 15px; max-width: 1200px; margin: auto; animation: fadeIn 0.4s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .header-main { text-align: center; padding: 40px 0; border-bottom: 2px solid var(--gold); margin-bottom: 30px; }
-        .header-main h1 { font-size: 2.5rem; color: var(--gold); margin: 0; }
+        .header-box { text-align: center; padding: 50px 0; border-bottom: 1px solid #333; margin-bottom: 30px; background: linear-gradient(to bottom, #111, #0a0a0a); }
+        .header-box h1 { font-size: 3rem; color: var(--gold); margin: 0; letter-spacing: 2px; }
         
-        .card { background: var(--panel); padding: 25px; border-radius: 10px; border-right: 5px solid var(--gold); margin-bottom: 20px; }
-        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-        .car-item { background: #1a1a1a; padding: 15px; border-radius: 5px; border-bottom: 2px solid var(--army-red); }
-        .car-item h4 { margin: 0 0 5px 0; color: var(--gold); }
+        .card { background: var(--panel); padding: 25px; border-radius: 8px; margin-bottom: 20px; border-right: 4px solid var(--army-red); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .card h3 { color: var(--gold); margin-top: 0; border-bottom: 1px solid #444; padding-bottom: 10px; }
 
-        .code-box { background: #000; color: #00ff00; padding: 10px; font-family: monospace; border-radius: 5px; direction: ltr; text-align: left; display: block; margin: 5px 0; border: 1px solid #333; }
-        
-        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 20px; }
-        .gallery div { text-align: center; }
-        .gallery img { width: 100%; border-radius: 5px; border: 1px solid var(--gold); }
-        
-        .forbidden-zone { border-right-color: var(--danger); background: rgba(255, 0, 0, 0.05); }
-        .rank-call { color: #aaa; font-style: italic; font-size: 0.9rem; }
+        /* Vehicle Grid */
+        .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        .fleet-item { background: #1f1f1f; padding: 15px; border-radius: 5px; border: 1px solid #333; }
+        .fleet-item h4 { color: var(--gold); margin: 0 0 10px 0; font-size: 1.1rem; }
+        .fleet-item p { margin: 5px 0; color: #ccc; }
 
-        table { width: 100%; border-collapse: collapse; background: #111; }
-        th { background: var(--army-red); padding: 12px; }
-        td { padding: 10px; border: 1px solid #222; text-align: center; }
+        .restricted { border-right: 4px solid #ff0000 !important; background: rgba(139, 0, 0, 0.1); }
+        .code-block { background: #000; color: #00ff00; padding: 12px; font-family: 'Courier New', monospace; border-radius: 4px; display: block; direction: ltr; text-align: left; margin: 10px 0; border: 1px solid #222; }
+
+        /* Gallery */
+        .img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .img-container { text-align: center; background: #111; padding: 10px; border: 1px solid #333; }
+        .img-container img { width: 100%; border-radius: 4px; margin-bottom: 10px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background: var(--army-red); color: white; padding: 15px; text-align: center; }
+        td { padding: 12px; border: 1px solid #333; text-align: center; background: #111; }
+
+        ul { padding-right: 20px; }
+        li { margin-bottom: 8px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <button onclick="showTab('apply')">تقديم متطوع</button>
-    <button onclick="checkAccess('MARVEL2026', 'fleet')">أسطول المركبات</button>
-    <button onclick="checkAccess('MARVEL2026', 'codes')">الأكواد والبروتوكولات</button>
-    <button onclick="checkAccess('AIR2026', 'airforce')">كلية الطيران</button>
-    <button onclick="checkAccess('LEADER2026', 'admin')" style="color:var(--gold)">غرفة العمليات</button>
+    <button onclick="showTab('main')">الرئيسية</button>
+    <button onclick="showTab('fleet')">أسطول المركبات</button>
+    <button onclick="showTab('protocols')">الأكواد والمناجاة</button>
+    <button onclick="showTab('airforce')">كلية الطيران</button>
+    <button onclick="showTab('ops')">مركز العمليات</button>
 </nav>
 
-<div id="apply" class="section active">
-    <div class="header-main">
+<div id="main" class="section active">
+    <div class="header-box">
         <h1>وزارة الدفاع لدولة مارفل</h1>
-        <p>بوابة الانضمام للقوات المسلحة - كن جزءاً من حماة الوطن</p>
+        <p>النظام، الانضباط، القوة</p>
     </div>
-    <div style="max-width:500px; margin:auto; background:var(--panel); padding:30px; border-radius:10px;">
-        <h3>نموذج طلب تجنيد</h3>
-        <input type="text" id="name" placeholder="الاسم العسكري الرباعي" style="width:100%; padding:12px; margin:10px 0; background:#000; color:#fff; border:1px solid #333;">
-        <input type="text" id="discord" placeholder="ID الديسكورد" style="width:100%; padding:12px; margin:10px 0; background:#000; color:#fff; border:1px solid #333;">
-        <select id="branch" style="width:100%; padding:12px; margin:10px 0; background:#000; color:#fff; border:1px solid #333;">
-            <option>القوات البرية (RSLF)</option>
-            <option>القوات الجوية (RSAF)</option>
-            <option>الشرطة العسكرية</option>
-        </select>
-        <button onclick="sendApp()" style="width:100%; padding:15px; background:var(--army-red); color:white; border:none; cursor:pointer; font-weight:bold;">إرسال الملف العسكري</button>
+    
+    <div class="card">
+        <h3>تقديم متطوع جديد</h3>
+        <div style="max-width: 600px; margin: auto;">
+            <input type="text" id="name" placeholder="الاسم العسكري الرباعي" style="width:100%; padding:12px; margin:10px 0; background:#000; color:#fff; border:1px solid #444;">
+            <input type="text" id="discord" placeholder="ID الديسكورد" style="width:100%; padding:12px; margin:10px 0; background:#000; color:#fff; border:1px solid #444;">
+            <select id="branch" style="width:100%; padding:12px; margin:10px 0; background:#000; color:#fff; border:1px solid #444;">
+                <option>القوات البرية [RSLF]</option>
+                <option>القوات الجوية [RSAF]</option>
+            </select>
+            <button onclick="sendApp()" style="width:100%; padding:15px; background:var(--army-red); color:white; border:none; cursor:pointer; font-weight:bold; font-size:1.1rem;">رفع الملف العسكري</button>
+        </div>
     </div>
 </div>
 
 <div id="fleet" class="section">
-    <div class="header-main"><h1>إدارة آليات القوات المسلحة</h1></div>
-    
     <div class="card">
-        <h3>🚨 سيارات السيناريوهات والقيادة</h3>
-        <div class="grid-layout">
-            <div class="car-item"><h4>المخصصة للسيناريوهات</h4>- ارمادا</div>
-            <div class="car-item"><h4>مسموحة للقيادة العامة</h4>- جي كلاس</div>
+        <h3>المركبات المخصصة والخاصة</h3>
+        <div class="fleet-grid">
+            <div class="fleet-item"><h4>السيارة المخصصة للسيناريوهات</h4>- ارمادا</div>
+            <div class="fleet-item"><h4>السيارة المسموحة للقيادة</h4>- جي كلاس</div>
+            <div class="fleet-item"><h4>سيارات وزير الدفاع ونائبه والمستشار</h4>- روز رايز <br> - BMW</div>
         </div>
     </div>
 
-    <div class="card forbidden-zone">
-        <h3 style="color:var(--danger)">⚠️ يمنع الاستخراج إلا بإذن القيادة العليا</h3>
-        <p style="font-size:0.8rem">بأمر: قائد القوات، نائبه، وزير الدفاع، نائبه، والمستشار</p>
-        <ul>
-            <li>يوكن / تاهو حرس وزير</li>
-            <li>سكاليد الحرس / دباب الحرس</li>
-            <li>هلي كوبتر / طيارة استطلاع</li>
-            <li>ناقلة عسكرية / مدرعة 1، 2، 3</li>
-            <li>المقاتلات: F-22 + F-15</li>
-            <li>القطع البحرية: قارب</li>
-        </ul>
+    <div class="card restricted">
+        <h3>⚠️ يمنع استخراجها إلا بإذن رسمي</h3>
+        <p>يمنع منعاً باتاً استخراج هذه المركبات إلا بإذن من: (قائد القوات، نائب قائد القوات، وزير الدفاع، نائبه، مستشار الوزير)</p>
+        <div class="fleet-grid">
+            <div class="fleet-item"><h4>حرس الوزير</h4>يوكن حرس وزير، تاهو حرس وزير، سكاليد الحرس، دباب الحرس</div>
+            <div class="fleet-item"><h4>الدعم الجوي والبحري</h4>هلي كوبتر، طيارة استطلاع، قارب</div>
+            <div class="fleet-item"><h4>الآليات الثقيلة</h4>ناقلة عسكرية، مدرعة 1، مدرعة 2، مدرعة 3</div>
+            <div class="fleet-item"><h4>المقاتلات الجوية</h4>F-22 + F-15</div>
+        </div>
     </div>
 
     <div class="card">
-        <h3>🎖️ توزيع المركبات حسب الرتب</h3>
-        <div class="grid-layout">
-            <div class="car-item"><h4>جندي - جندي أول</h4>فورد فكتوريا / كابرس</div>
-            <div class="car-item"><h4>عريف - وكيل رقيب</h4>كامري 2025 / تاهو</div>
-            <div class="car-item"><h4>رقيب - رئيس رقباء</h4>باترول / كدلك</div>
-            <div class="car-item"><h4>ملازم - ملازم أول</h4>تورس / تشارجر</div>
-            <div class="car-item"><h4>نقيب - رائد</h4>لكزس / سكويا</div>
-            <div class="car-item"><h4>مقدم - عقيد</h4>جيتور</div>
-            <div class="car-item"><h4>عميد - لواء</h4>تشالنجر / يوكن</div>
-            <div class="car-item"><h4>فريق - فريق أول</h4>جي كلاس</div>
+        <h3>توزيع المركبات حسب الرتب (أكاديمية القوات المسلحة)</h3>
+        <div class="fleet-grid">
+            <div class="fleet-item"><h4>جندي مستجد إلى جندي أول</h4>فورد فكتوريا، كابرس</div>
+            <div class="fleet-item"><h4>عريف إلى وكيل رقيب</h4>كامري 2025، تاهو</div>
+            <div class="fleet-item"><h4>رقيب إلى رئيس رقباء</h4>باترول، كدلك</div>
+            <div class="fleet-item"><h4>ملازم إلى ملازم أول</h4>تورس، تشارجر</div>
+            <div class="fleet-item"><h4>نقيب إلى رائد</h4>لكزس، سكويا</div>
+            <div class="fleet-item"><h4>مقدم ركن إلى عقيد ركن</h4>جيتور</div>
+            <div class="fleet-item"><h4>عميد ركن إلى لواء ركن</h4>تشالنجر، يوكن</div>
+            <div class="fleet-item"><h4>فريق ركن إلى فريق أول ركن</h4>جي كلاس</div>
         </div>
     </div>
 </div>
 
-<div id="codes" class="section">
-    <div class="header-main"><h1>الأكواد والمناجاة العسكرية</h1></div>
-    
+<div id="protocols" class="section">
     <div class="card">
-        <h3>👕 أكواد اللباس الرسمي</h3>
-        <div class="grid-layout">
-            <div class="car-item"><h4>ميدان أفراد</h4>كود: 59316417</div>
-            <div class="car-item"><h4>مداهمات أفراد</h4>كود: 54516535</div>
-            <div class="car-item"><h4>ضباط (ميدان/مداهمات)</h4>كود: 35889554</div>
-            <div class="car-item"><h4>لباس القيادة</h4>كود: 15981693</div>
-            <div class="car-item"><h4>القوات البرية [RSLF]</h4>كود: 21389850</div>
-            <div class="car-item"><h4>القوات الجوية [RSAF]</h4>كود: 78824265</div>
+        <h3>بروتوكولات مناداة الرتب</h3>
+        <ul>
+            <li><strong>الفئة الأولى (من فريق إلى فريق أول):</strong> تناديه معالي [رتبته] - مثال: معالي فريق أول...</li>
+            <li><strong>الفئة الثانية (من مقدم إلى لواء):</strong> تناديه سعادة [رتبته] - مثال: سعادة لواء...</li>
+            <li><strong>الفئة الثالثة (من ملازم إلى رائد):</strong> تناديه حضرة [رتبته] - مثال: حضرة الرائد...</li>
+        </ul>
+        <p>الموجة الخاصة بالقوات المسلحة: <strong>3</strong></p>
+    </div>
+
+    <div class="card">
+        <h3>أكواد الملابس (Uniform Codes)</h3>
+        <div class="fleet-grid">
+            <div class="fleet-item"><h4>ميدان أفراد</h4>كود: 59316417</div>
+            <div class="fleet-item"><h4>مداهمات أفراد</h4>كود: 54516535</div>
+            <div class="fleet-item"><h4>ضباط (ميدان ومداهمات)</h4>كود: 35889554</div>
+            <div class="fleet-item"><h4>القيادة</h4>كود: 15981693</div>
+            <div class="fleet-item"><h4>القوات البرية [RSLF]</h4>كود: 21389850</div>
+            <div class="fleet-item"><h4>القوات الجوية [RSAF]</h4>كود: 78824265</div>
         </div>
     </div>
 
     <div class="card">
-        <h3>🗣️ بروتوكول مناداة الرتب</h3>
-        <ul>
-            <li><strong>معالي [الرتبة]:</strong> من فريق إلى فريق أول</li>
-            <li><strong>سعادة [الرتبة]:</strong> من مقدم إلى لواء</li>
-            <li><strong>حضرة [الرتبة]:</strong> من ملازم إلى رائد</li>
-        </ul>
-        <p>الموجة الخاصة: <strong>3</strong></p>
-    </div>
-
-    <div class="card">
-        <h3>⌨️ برمجة اختصارات F8</h3>
-        <span class="code-box">bind keyboard 0 "e airforce04" // التحية (سلوود)</span>
-        <span class="code-box">bind keyboard 0 "e airforce02" // وضع الاستعداد</span>
-        <span class="code-box">bind keyboard 0 "e airforce03" // وضع الاستراحة</span>
-    </div>
-
-    <h3>📸 دليل الحركات العسكرية</h3>
-    <div class="gallery">
-        <div><img src="1.png"><p>التحية (سلوود)</p></div>
-        <div><img src="2.png"><p>الاستعداد</p></div>
-        <div><img src="3.png"><p>الاستراحة</p></div>
+        <h3>اختصارات F8 (التحية والوضعية)</h3>
+        <p>انسخ الكود والصقه في F8 مع تغيير الرقم (0) للزر الذي تفضله:</p>
+        <span class="code-block">bind keyboard 0 "e airforce04" // امر سلود (التحية)</span>
+        <span class="code-block">bind keyboard 0 "e airforce02" // امر استعد</span>
+        <span class="code-block">bind keyboard 0 "e airforce03" // امر استرح</span>
+        
+        <div class="img-grid" style="margin-top:20px;">
+            <div class="img-container"><img src="1.png"><h4>1- التحية (سلود)</h4></div>
+            <div class="img-container"><img src="2.png"><h4>2- وضعية الاستعداد</h4></div>
+            <div class="img-container"><img src="3.png"><h4>3- وضعية الاسترح</h4></div>
+        </div>
     </div>
 </div>
 
 <div id="airforce" class="section">
-    <div class="header-main"><h1>أكاديمية الطيران والعمليات الجوية</h1></div>
     <div class="card">
-        <h3>🪂 بروتوكول القفز المظلي</h3>
-        <p>1. الإيجاز | 2. التجهيز | 3. المحاكاة | 4. الصعود | 5. القفز</p>
-        <p><strong>الفاصل الزمني:</strong> 2-3 ثواني بين كل قافز. يمنع القفز المتلاصق.</p>
-        <p><strong>الدقة:</strong> يجب الهبوط في دائرة 50 متر من الهدف.</p>
+        <h3>برنامج التأهيل والعمليات الجوية</h3>
+        <p>يهدف هذا البرنامج إلى تأهيل المتدربين للعمل ضمن أنظمة عسكرية صارمة. أي إخلال يُعد مخالفة تستوجب المساءلة.</p>
+        <h4>واجبات الطيار:</h4>
+        <ul>
+            <li>الالتزام الكامل بأوامر مركز العمليات.</li>
+            <li>عدم الإقلاع إلا بتوجيه رسمي.</li>
+            <li>المحافظة على الجاهزية الفنية للطائرة.</li>
+        </ul>
     </div>
-    <div class="card forbidden-zone">
-        <h3>🚫 تحذيرات صارمة للطيارين</h3>
-        <p>- يمنع أي إقلاع أو تغيير مسار بدون إذن مباشر من مركز العمليات.</p>
-        <p>- تجاهل الأوامر يستوجب الإيقاف الفوري والسجن العسكري.</p>
-        <p>- السلامة الجوية أولاً: أي استهتار بالعتاد يعتبر مخالفة جسيمة.</p>
+
+    <div class="card">
+        <h3>بروتوكول القفز المظلي</h3>
+        <p><strong>المراحل:</strong> الإيجاز -> تجهيز العتاد -> محاكاة أرضية -> الصعود -> التنفيذ</p>
+        <p><strong>التنفيذ:</strong> العد التنازلي 3...2...1 ثم القفز. الفاصل بين كل فرد 2 إلى 3 ثواني.</p>
+        <p>يمنع القفز الجماعي المتلاصق. يجب الهبوط ضمن نطاق 50 متر من الهدف.</p>
     </div>
 </div>
 
-<div id="admin" class="section">
-    <div class="header-main"><h1>مركز إدارة العمليات</h1></div>
-    <table>
-        <thead><tr><th>المجند</th><th>ID الديسكورد</th><th>القطاع</th><th>الإجراء</th></tr></thead>
-        <tbody id="admin_list"></tbody>
-    </table>
+<div id="ops" class="section">
+    <div class="card">
+        <h3>قواعد مركز العمليات</h3>
+        <ul>
+            <li>الأولوية في استلام العمليات للرتب: (وكيل رقيب، رقيب، رقيب أول، رئيس رقباء).</li>
+            <li>التحضير الدوري كل 15 دقيقة لضمان التزام الجميع.</li>
+            <li>يمنع الجدال مع العمليات داخل التردد؛ أي اعتراض يوثق فيديو ويرسل للمسؤولين.</li>
+            <li>إذا لم تستجب الوحدة لـ 3 نداءات، يتم حذف كودها من التقرير.</li>
+        </ul>
+    </div>
+    
+    <div class="card">
+        <h3>سجل المتقدمين (خاص بالقيادة)</h3>
+        <table id="appsTable">
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>ID ديسكورد</th>
+                    <th>القطاع</th>
+                    <th>الإجراء</th>
+                </tr>
+            </thead>
+            <tbody id="admin_list"></tbody>
+        </table>
+    </div>
 </div>
 
 <script>
-    // الإعدادات (تأكد من استخدام بيانات Firebase الخاصة بك)
+    // Firebase Setup (استخدم بياناتك الحقيقية هنا)
     const firebaseConfig = {
         apiKey: "AIzaSyBWB-zYDHuYlQ2afaxKuOXlWKI7xAgjmTw",
         authDomain: "marvel-military.firebaseapp.com",
@@ -186,32 +213,43 @@
     function showTab(id) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        if(id === 'admin') loadApps();
-    }
-
-    function checkAccess(p, target) {
-        if(prompt("كلمة سر الدخول للمنشأة:") === p) showTab(target);
-        else alert("دخول غير مصرح! تم إبلاغ الشرطة العسكرية.");
+        if(id === 'ops') loadApps();
     }
 
     function sendApp() {
-        const n = document.getElementById('name').value, d = document.getElementById('discord').value, b = document.getElementById('branch').value;
+        const n = document.getElementById('name').value;
+        const d = document.getElementById('discord').value;
+        const b = document.getElementById('branch').value;
         if(n && d) {
-            db.collection("marvel_def_apps").add({ name: n, discord: d, branch: b, date: new Date().toLocaleString() })
-            .then(() => { alert("تم إرسال ملفك بنجاح. انتظر الرد من القيادة."); location.reload(); });
-        }
+            db.collection("marvel_applications").add({
+                name: n, discord: d, branch: b, timestamp: new Date()
+            }).then(() => {
+                alert("تم رفع ملفك العسكري بنجاح.");
+                location.reload();
+            });
+        } else { alert("يرجى إكمال البيانات."); }
     }
 
     function loadApps() {
         const list = document.getElementById('admin_list');
         list.innerHTML = "";
-        db.collection("marvel_def_apps").get().then(snap => {
+        db.collection("marvel_applications").orderBy("timestamp", "desc").get().then(snap => {
             snap.forEach(doc => {
                 const data = doc.data();
-                list.innerHTML += `<tr><td>${data.name}</td><td>${data.discord}</td><td>${data.branch}</td>
-                <td><button onclick="deleteApp('${doc.id}')" style="background:red; color:white; border:none; padding:5px; cursor:pointer;">حذف</button></td></tr>`;
+                list.innerHTML += `<tr>
+                    <td>${data.name}</td>
+                    <td>${data.discord}</td>
+                    <td>${data.branch}</td>
+                    <td><button onclick="deleteApp('${doc.id}')" style="background:red; color:white; border:none; padding:5px; cursor:pointer;">حذف</button></td>
+                </tr>`;
             });
         });
+    }
+
+    function deleteApp(id) {
+        if(confirm("هل تريد حذف هذا الطلب؟")) {
+            db.collection("marvel_applications").doc(id).delete().then(() => loadApps());
+        }
     }
 </script>
 
