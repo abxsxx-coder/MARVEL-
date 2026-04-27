@@ -8,55 +8,54 @@
     <style>
         :root { --primary: #ff0000; --gold: #d4af37; --bg: #050505; --success: #28a745; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', Tahoma; margin: 0; text-align: center; }
-        nav { background: #111; padding: 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: center; gap: 10px; }
+        nav { background: #111; padding: 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: center; gap: 10px; position: sticky; top: 0; z-index: 1000; }
         nav button { background: none; color: white; border: 1px solid var(--primary); padding: 10px 15px; cursor: pointer; font-weight: bold; }
         .section { display: none; background: #111; margin: 20px auto; padding: 25px; width: 90%; max-width: 1000px; border-right: 5px solid var(--primary); text-align: right; }
         .active { display: block; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #000; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #000; color: white; }
         th, td { border: 1px solid #333; padding: 12px; text-align: center; }
-        th { background: var(--primary); color: white; }
-        .btn-accept { background: var(--success); color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 4px; }
-        .btn-reject { background: var(--primary); color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 4px; }
-        .status-accepted { color: var(--success); font-weight: bold; }
-        .status-rejected { color: var(--primary); font-weight: bold; }
+        th { background: var(--primary); }
+        .protocol-img { width: 100%; max-width: 600px; border: 1px solid var(--gold); margin: 20px auto; display: block; }
         input, select { width: 100%; padding: 12px; margin: 10px 0; background: #000; color: white; border: 1px solid #444; }
+        .btn-action { padding: 5px 15px; cursor: pointer; border: none; border-radius: 4px; color: white; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <nav>
     <button onclick="showTab('apply')">تقديم طلب</button>
-    <button onclick="showTab('rules')">القوانين</button>
-    <button onclick="checkAdminAccess()" style="border-color: var(--gold); color: var(--gold);">لوحة التحكم (للقادة فقط)</button>
+    <button onclick="showTab('rules')">القوانين والبروتوكولات</button>
+    <button onclick="checkAdminAccess()" style="border-color: var(--gold); color: var(--gold);">لوحة التحكم (للقادة)</button>
 </nav>
 
 <div id="apply" class="section active">
-    <h2>📩 تقديم طلب انضمام</h2>
-    <input type="text" id="name" placeholder="الاسم العسكري">
+    <h2>📩 تقديم طلب انضمام عسكري</h2>
+    <input type="text" id="name" placeholder="الاسم العسكري الثلاثي">
     <input type="text" id="discord" placeholder="معرف الديسكورد">
     <select id="branch">
         <option>القوات البرية</option>
         <option>القوات الجوية</option>
         <option>الشرطة العسكرية</option>
     </select>
-    <button onclick="sendData()" style="background:var(--primary); color:white; width:100%; padding:15px; border:none; font-weight:bold; cursor:pointer;">إرسال الطلب</button>
+    <button onclick="sendData()" style="background:var(--primary); color:white; width:100%; padding:15px; border:none; font-weight:bold; cursor:pointer;">إرسال الطلب الرسمي</button>
 </div>
 
 <div id="rules" class="section">
-    <h2>📜 التعميمات والبروتوكولات</h2>
-    <img src="12121212.png" style="width:100%; max-width:600px; border:1px solid var(--gold); margin-bottom:20px;">
-    <p>ملاحظة: الالتزام بالتعليمات الصادرة أعلاه إلزامي لجميع الأفراد.</p>
+    <h2 style="color:var(--gold)">📜 البروتوكولات العسكرية</h2>
+    <img src="salute.png" class="protocol-img" alt="بروتوكول الرتب">
+    <div style="background:#000; padding:15px; border-left: 4px solid var(--gold);">
+        <p>⚠️ تعميم: يجب حفظ رتب المناداة الموضحة في الصورة أعلاه قبل دخول المقابلة.</p>
+    </div>
 </div>
 
 <div id="admin_panel" class="section">
-    <h2 style="color:var(--gold)">⚙️ إدارة شؤون الأفراد</h2>
-    <p>هذه الشاشة مخصصة لمراجعة الطلبات واتخاذ إجراءات القبول أو الرفض.</p>
+    <h2 style="color:var(--gold)">⚙️ إدارة شؤون الأفراد والقبول</h2>
     <table>
         <thead>
             <tr>
                 <th>الاسم</th>
                 <th>القطاع</th>
-                <th>الديسكورد</th>
+                <th>الحالة</th>
                 <th>الإجراء</th>
             </tr>
         </thead>
@@ -66,7 +65,7 @@
 </div>
 
 <script>
-    // إعدادات Firebase الخاصة بمشروعك Marvel-Military
+    // إعدادات Firebase الخاصة بك Marvel-Military
     const firebaseConfig = {
         apiKey: "AIzaSyBWB-zYDHuYlQ2afaxKuOXlWKI7xAgjmTw",
         authDomain: "marvel-military.firebaseapp.com",
@@ -84,16 +83,16 @@
         if(tabId === 'admin_panel') loadApplications();
     }
 
+    // الدخول للوحة التحكم برمز سري
     function checkAdminAccess() {
-        const pass = prompt("أدخل رمز دخول القادة لفتح لوحة التحكم:");
-        if(pass === "MARVEL_LEADER_2026") {
+        const pass = prompt("أدخل رمز دخول القادة:");
+        if(pass === "MARVEL2026") {
             showTab('admin_panel');
         } else {
-            alert("غير مصرح لك بالدخول!");
+            alert("دخول غير مصرح!");
         }
     }
 
-    // إرسال الطلب لقاعدة البيانات
     function sendData() {
         const n = document.getElementById('name').value;
         const d = document.getElementById('discord').value;
@@ -102,44 +101,37 @@
             db.collection("applications").add({
                 military_name: n, discord_id: d, division: b, status: 'pending', timestamp: new Date().toLocaleString()
             }).then(() => {
-                alert("تم إرسال طلبك بنجاح!");
+                alert("تم إرسال طلبك! سيتم الرد عليك قريباً.");
                 location.reload();
             });
         }
     }
 
-    // تحميل الطلبات في لوحة التحكم
     function loadApplications() {
         const list = document.getElementById('applications_list');
-        list.innerHTML = "<tr><td colspan='4'>جاري تحميل الطلبات...</td></tr>";
+        list.innerHTML = "<tr><td colspan='4'>جاري جلب بيانات المتطوعين...</td></tr>";
         
         db.collection("applications").orderBy("timestamp", "desc").get().then((querySnapshot) => {
             list.innerHTML = "";
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
-                const row = `
+                list.innerHTML += `
                     <tr>
                         <td>${data.military_name}</td>
                         <td>${data.division}</td>
-                        <td>${data.discord_id}</td>
-                        <td id="action-${doc.id}">
-                            ${data.status === 'pending' ? `
-                                <button class="btn-accept" onclick="updateStatus('${doc.id}', 'accepted')">قبول</button>
-                                <button class="btn-reject" onclick="updateStatus('${doc.id}', 'rejected')">رفض</button>
-                            ` : `<span class="status-${data.status}">${data.status === 'accepted' ? 'مقبول ✅' : 'مرفوض ❌'}</span>`}
+                        <td>${data.status}</td>
+                        <td>
+                            <button class="btn-action" style="background:var(--success)" onclick="updateStatus('${doc.id}', 'مقبول ✅')">قبول</button>
+                            <button class="btn-action" style="background:var(--primary)" onclick="updateStatus('${doc.id}', 'مرفوض ❌')">رفض</button>
                         </td>
                     </tr>`;
-                list.innerHTML += row;
             });
         });
     }
 
-    // تحديث حالة الطلب (قبول/رفض)
-    function updateStatus(docId, newStatus) {
-        db.collection("applications").doc(docId).update({
-            status: newStatus
-        }).then(() => {
-            alert(newStatus === 'accepted' ? "تم قبول الجندي!" : "تم رفض الطلب.");
+    function updateStatus(id, stat) {
+        db.collection("applications").doc(id).update({ status: stat }).then(() => {
+            alert("تم تحديث حالة الطلب");
             loadApplications();
         });
     }
