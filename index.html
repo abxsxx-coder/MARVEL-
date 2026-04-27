@@ -8,40 +8,48 @@
     <style>
         :root { --primary: #ff0000; --gold: #d4af37; --bg: #050505; }
         body { background: var(--bg); color: white; font-family: 'Segoe UI', Tahoma; margin: 0; text-align: center; }
-        .hero { padding: 40px; background: #000; border-bottom: 3px solid var(--primary); }
-        .section { background: #111; margin: 20px auto; padding: 25px; width: 90%; max-width: 800px; border-right: 5px solid var(--primary); text-align: right; }
-        .protocol-img { width: 100%; border: 1px solid var(--gold); margin: 15px 0; border-radius: 5px; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #000; color: white; border: 1px solid #444; border-radius: 4px; box-sizing: border-box; }
-        .btn { background: var(--primary); color: white; border: none; padding: 15px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.1rem; }
+        nav { background: #111; padding: 15px; border-bottom: 2px solid var(--primary); }
+        nav button { background: none; color: white; border: 1px solid var(--primary); padding: 10px 20px; cursor: pointer; margin: 0 5px; }
+        .hero { padding: 30px; background: #000; }
+        .section { display: none; background: #111; margin: 20px auto; padding: 25px; width: 90%; max-width: 800px; border-right: 5px solid var(--primary); text-align: right; }
+        .active { display: block; }
+        .protocol-img { width: 100%; border: 1px solid var(--gold); margin: 15px 0; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #000; color: white; border: 1px solid #444; }
+        .btn { background: var(--primary); color: white; border: none; padding: 15px; cursor: pointer; width: 100%; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <h1 style="font-size: 2.5rem; margin: 0;">MARVEL MILITARY</h1>
-    <p style="color: var(--gold); font-weight: bold;">بوابة الالتحاق الرسمية</p>
-</div>
+<nav>
+    <button onclick="showTab('apply')">تقديم طلب انضمام</button>
+    <button onclick="showTab('rules')">القوانين والبروتوكولات</button>
+</nav>
 
-<div class="section">
-    <h2>🎖️ بروتوكول مناداة الرتب</h2>
-    <img src="image_d819d0.png" class="protocol-img" alt="بروتوكول الرتب">
-</div>
-
-<div class="section" id="formContainer">
+<div id="apply" class="section active">
     <h2>📩 طلب التحاق عسكري</h2>
     <input type="text" id="name" placeholder="الاسم العسكري الثلاثي">
-    <input type="text" id="discord" placeholder="معرف الديسكورد (ID)">
+    <input type="text" id="discord" placeholder="معرف الديسكورد">
     <select id="branch">
         <option>القوات البرية</option>
         <option>القوات الجوية</option>
         <option>الشرطة العسكرية</option>
     </select>
-    <textarea id="reason" rows="3" placeholder="لماذا ترغب في الانضمام؟"></textarea>
-    <button class="btn" onclick="sendData()">إرسال الطلب للقيادة</button>
+    <button class="btn" onclick="sendData()">إرسال الطلب</button>
+</div>
+
+<div id="rules" class="section">
+    <h2>📜 القوانين العامة</h2>
+    <ul>
+        <li>يمنع منعاً باتاً الخروج عن النص العسكري أثناء الدوام.</li>
+        <li>الالتزام بالراديو والترددات المحددة لكل قطاع.</li>
+        <li>احترام الرتب الأعلى والتقيد ببروتوكول المناداة.</li>
+    </ul>
+    
+    <h2>🎖️ بروتوكول مناداة الرتب</h2>
+    <img src="image_d819d0.png" class="protocol-img" alt="بروتوكول الرتب">
 </div>
 
 <script>
-    // تم استخراج هذه البيانات من صور إعدادات Firebase الخاصة بك
     const firebaseConfig = {
         apiKey: "AIzaSyBWB-zYDHuYlQ2afaxKuOXlWKI7xAgjmTw",
         authDomain: "marvel-military.firebaseapp.com",
@@ -55,27 +63,19 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    function sendData() {
-        const name = document.getElementById('name').value;
-        const discord = document.getElementById('discord').value;
-        const branch = document.getElementById('branch').value;
-        const reason = document.getElementById('reason').value;
+    function showTab(tabId) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+    }
 
-        if(name && discord) {
+    function sendData() {
+        const n = document.getElementById('name').value;
+        const d = document.getElementById('discord').value;
+        const b = document.getElementById('branch').value;
+        if(n && d) {
             db.collection("applications").add({
-                military_name: name,
-                discord_id: discord,
-                division: branch,
-                statement: reason,
-                timestamp: new Date().toLocaleString()
-            })
-            .then(() => {
-                alert("تم إرسال طلبك بنجاح!");
-                document.getElementById('formContainer').innerHTML = "<h3 style='text-align:center; color:var(--gold);'>تم استلام الطلب بنجاح.</h3>";
-            })
-            .catch((e) => alert("خطأ: تأكد من تفعيل Firestore في وضع Test Mode"));
-        } else {
-            alert("يرجى إكمال البيانات الأساسية.");
+                name: n, discord: d, branch: b, date: new Date().toLocaleString()
+            }).then(() => alert("تم الإرسال! يمكنك الآن الانتقال لصفحة القوانين للقراءة."));
         }
     }
 </script>
