@@ -3,286 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وزارة الدفاع لدولة مارفل | الموقـع الرسمي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>وزارة الدفاع - دولة مارفل</title>
     <style>
         :root {
-            --primary: #4a0000;
-            --gold: #d4af37;
-            --dark: #0a0a0a;
-            --card: #151515;
-            --text: #ffffff;
+            --primary-gold: #c5a059;
+            --army-green: #1b261d;
+            --dark-steel: #121212;
+            --alert-red: #8b0000;
         }
 
         body {
-            background-color: var(--dark);
-            color: var(--text);
-            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-steel);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             overflow-x: hidden;
         }
 
-        /* نظام تسجيل الدخول العام */
-        #login-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(74,0,0,0.8));
-            z-index: 9999; display: flex; align-items: center; justify-content: center;
+        /* شاشة الدخول */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #1b261d 0%, #000 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
         }
+
         .login-card {
-            background: var(--card); padding: 30px; border-radius: 15px;
-            border: 2px solid var(--gold); text-align: center; width: 350px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--primary-gold);
+            text-align: center;
+            backdrop-filter: blur(10px);
         }
-        .login-card input {
-            width: 90%; padding: 12px; margin: 10px 0; border-radius: 5px;
-            border: 1px solid #444; background: #000; color: white; text-align: center;
+
+        input {
+            background: #000;
+            border: 1px solid var(--primary-gold);
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            width: 250px;
+            text-align: center;
         }
 
-        /* الهيدر والقائمة */
-        header { background: #000; border-bottom: 3px solid var(--primary); padding: 15px; text-align: center; }
-        nav { background: #111; display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; padding: 10px; position: sticky; top: 0; z-index: 100; }
-        nav button {
-            background: transparent; border: 1px solid var(--primary); color: white;
-            padding: 8px 15px; cursor: pointer; font-weight: bold; transition: 0.3s;
+        button {
+            background: var(--primary-gold);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
         }
-        nav button:hover { background: var(--primary); color: var(--gold); }
 
-        .container { max-width: 1100px; margin: 20px auto; padding: 15px; }
-        .section { display: none; animation: fadeIn 0.4s; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        button:hover {
+            background: white;
+            box-shadow: 0 0 15px var(--primary-gold);
+        }
 
-        .card { background: var(--card); border-radius: 10px; padding: 20px; margin-bottom: 20px; border-right: 5px solid var(--gold); }
-        h2, h3 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; }
-        
-        /* الجداول */
-        table { width: 100%; border-collapse: collapse; margin: 15px 0; background: #000; }
-        th, td { border: 1px solid #333; padding: 12px; text-align: right; font-size: 14px; }
-        th { background: var(--primary); color: var(--gold); }
+        /* المحتوى الرئيسي */
+        #main-content {
+            display: none;
+            padding: 20px;
+        }
 
-        .alert { background: #4a0000; color: #fff; padding: 15px; border-radius: 5px; border: 1px solid var(--gold); margin: 15px 0; }
-        .code-box { background: #000; color: #00ff00; padding: 10px; border-radius: 5px; font-family: monospace; display: block; margin: 5px 0; direction: ltr; }
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-gold);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
 
-        .footer-note { text-align: center; font-size: 12px; color: #666; margin-top: 50px; }
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            margin: 20px auto;
+            padding: 20px;
+            border-right: 4px solid var(--primary-gold);
+            max-width: 1000px;
+        }
+
+        h2 { color: var(--primary-gold); border-bottom: 1px solid #333; padding-bottom: 10px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th { background: var(--primary-gold); color: black; }
+
+        .code-box {
+            background: #000;
+            padding: 15px;
+            border: 1px dashed var(--primary-gold);
+            font-family: monospace;
+            color: #0f0;
+            direction: ltr;
+        }
+
+        .alert {
+            color: #ff4d4d;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .role-tag {
+            background: #222;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--primary-gold);
+        }
     </style>
 </head>
 <body>
 
-<div id="login-overlay">
-    <div class="login-card">
-        <h2 style="margin-top:0">وزارة الدفاع</h2>
-        <p>يرجى تسجيل الدخول العسكري</p>
-        <input type="text" id="user-name" placeholder="الاسم الثلاثي">
-        <input type="text" id="user-id" placeholder="الكود العسكري">
-        <button class="login-card button" style="background:var(--gold); border:none; padding:10px 30px; cursor:pointer; font-weight:bold" onclick="siteLogin()">دخول المنظومة</button>
+    <div id="login-screen">
+        <div class="login-card">
+            <h1 style="color: var(--primary-gold);">نظام وزارة الدفاع</h1>
+            <p>دولة مارفل - MARVEL STATE</p>
+            <input type="text" id="username" placeholder="الاسم العسكري"><br>
+            <input type="password" id="password" placeholder="كلمة المرور للمسؤولين"><br>
+            <button onclick="checkLogin()">دخول النظام</button>
+            <p id="error-msg" style="color: red; display: none;">خطأ في البيانات!</p>
+        </div>
     </div>
-</div>
 
-<header>
-    <h1 style="color:var(--gold); margin:0">وزارة الدفاع لدولة مارفل</h1>
-    <p style="margin:5px 0">القوات المسلحة - بوابة العمليات والإدارة</p>
-</header>
+    <div id="main-content">
+        <header>
+            <h1>وزارة الدفاع - دولة مارفل</h1>
+            <p>البوابة الرقمية الموحدة للقوات المسلحة</p>
+        </header>
 
-<nav id="main-nav" style="display:none">
-    <button onclick="showSection('home')">الرئيسية والقوانين</button>
-    <button onclick="showSection('vehicles')">أسطول المركبات</button>
-    <button onclick="showSection('violations')">لوائح الجزاءات</button>
-    <button onclick="showSection('training')">الأكاديميات</button>
-    <button onclick="showSection('uniforms')">الأكواد العسكرية</button>
-    <button onclick="showSection('admin')">بوابة القبول 🔒</button>
-</nav>
+        <div class="section">
+            <h2>🚗 كشف المركبات العسكرية</h2>
+            <table>
+                <tr>
+                    <th>الرتبة</th>
+                    <th>المركبات المسموحة</th>
+                </tr>
+                <tr><td>جندي - جندي أول</td><td>فورد فكتوريا - كابرس</td></tr>
+                <tr><td>عريف - وكيل رقيب</td><td>كامري 2025 - تاهو</td></tr>
+                <tr><td>رقيب - رئيس رقباء</td><td>باترول - كدلك</td></tr>
+                <tr><td>ملازم - ملازم أول</td><td>تورس - تشارجر</td></tr>
+                <tr><td>نقيب - رائد</td><td>لكزس - سكويا</td></tr>
+                <tr><td>مقدم - عقيد</td><td>جيتور</td></tr>
+                <tr><td>عميد - لواء</td><td>تشالنجر - يوكن</td></tr>
+                <tr><td>فريق - فريق أول</td><td>جي كلاس</td></tr>
+            </table>
 
-<div class="container" id="content-area" style="display:none">
-    
-    <div id="home" class="section active">
-        <div class="card">
-            <h3>قـوانـيـن وزارة الـدفـاع (23 بنداً)</h3>
-            <ol style="line-height: 1.8;">
-                <li>احترام المواطن وجميع العساكر وتمثيل الشخصية العسكرية قولاً وفعلاً.</li>
-                <li>يمنع الاستهتار باللبس العسكري حتى مع الأصدقاء.</li>
-                <li>التواجد الإلزامي في راديو مركز العمليات (ديسكورد + مدينة).</li>
-                <li>يمنع إغلاق السماعة (الدفن) أو الـ AFK في مركز العمليات.</li>
-                <li>لا يحق مطاردة المواطن خارج لوس سانتوس إلا بإذن العمليات.</li>
-                <li><strong>استلام العمليات:</strong> حصراً لرتبة @وكيل رقيب فأعلى.</li>
-                <li>يستخدم التيزر في المطاردات الراجلة أو إذا كانت المركبة متوقفة فقط.</li>
-                <li>يجب الخدمة لمدة 14 يوماً قبل الاستقالة لتجنب الفصل الوزاري.</li>
-                <li>عند الاستقالة: تسليم كافة العهد (السجن 15 شهر للمخالف).</li>
-                <li>طلب هوية المواطن إجراء إلزامي قبل أي تصرف عسكري.</li>
-                <li>التفتيش للمشتبه بهم أو الهاربين فقط.</li>
-                <li>الالتزام بقوانين المرور إلا في حالات المطاردة الرسمية.</li>
-                <li>إغلاق المركبة عند النزول (تعتبر عهدة عسكرية).</li>
-                <li>التوجه للعمليات فور دخول المدينة لتحديد التوزيع الميداني.</li>
-                <li>يمنع التلاعب بالأكواد العسكرية في القائمة الرسمية.</li>
-                <li>للقوات المسلحة الحق في مصادرة جميع أنواع الممنوعات.</li>
-                <li>القطاع هو المسؤول الأول عن (ساندي وبوليتو).</li>
-                <li>يجب على القطاعات الأخرى أخذ الإذن قبل أي إجراء في مناطقنا.</li>
-                <li>نقاط التفتيش خارج لوس منطقة آمنة يمنع فيها قتل العساكر.</li>
-                <li>يمنع إطلاق النار على العساكر في الدوريات الحرة إلا في حال بدأ العسكري.</li>
-                <li>خطف العسكري: مسموح بشرط (3 أشخاص ضد 1) وبالتهديد فقط.</li>
-                <li>يجب على العسكري الخوف على حياته عند التهديد بـ 3 أشخاص.</li>
-                <li>يمنع طلب إنعاش مواطن في منطقة غير آمنة.</li>
+            <p class="alert">⚠️ مركبة السناريوهات المخصصة: ارمادا</p>
+            <p class="alert">⚠️ مركبات القيادة العليا (الوزير/النائب/المستشار): روز رايز - BMW</p>
+        </div>
+
+        <div class="section">
+            <h2>📜 قوانين القوات المسلحة</h2>
+            <ol>
+                <li>تمثيل الشخصية العسكرية قولاً وفعلاً وعدم الخروج عن "الرول بلاي".</li>
+                <li>يمنع الاستهتار بالزي العسكري أو وضعه بشكل غير لائق.</li>
+                <li>الالتزام براديو العمليات <span class="role-tag">تردد 3</span> فور دخول المدينة.</li>
+                <li>يمنع استخدام التيزر في المطاردات إلا في حال توقف المركبة.</li>
+                <li>يجب الخدمة لمدة 14 يوماً قبل تقديم أي استقالة.</li>
             </ol>
         </div>
 
-        <div class="card">
-            <h3>بروتوكولات الرتب والمناداة</h3>
+        <div class="section">
+            <h2>🛡️ أكواد التجهيزات والملابس</h2>
             <ul>
-                <li><strong>معالي:</strong> من رتبة (فريق) إلى (فريق أول).</li>
-                <li><strong>سعادة:</strong> من رتبة (مقدم) إلى (لواء).</li>
-                <li><strong>حضرة:</strong> من رتبة (ملازم) إلى (رائد).</li>
+                <li>لبس الميدان (أفراد): <span class="code-box">59316417</span></li>
+                <li>لبس المداهمات (أفراد): <span class="code-box">54516535</span></li>
+                <li>لبس الضباط الشامل: <span class="code-box">35889554</span></li>
+                <li>لبس القيادة العليا: <span class="code-box">15981693</span></li>
+                <li>القوات الجوية [RSAF]: <span class="code-box">78824265</span></li>
             </ul>
         </div>
-    </div>
 
-    <div id="vehicles" class="section">
-        <div class="card">
-            <h3>توزيع المركبات حسب الرتبة</h3>
-            <table>
-                <tr><th>الرتبة</th><th>المركبات المسموحة</th></tr>
-                <tr><td>جندي - جندي أول</td><td>فورد فكتوريا، كابرس</td></tr>
-                <tr><td>عريف - وكيل رقيب</td><td>كامري 2025، تاهو</td></tr>
-                <tr><td>رقيب - رئيس رقباء</td><td>باترول، كدلك</td></tr>
-                <tr><td>ملازم - ملازم أول</td><td>تورس، تشارجر</td></tr>
-                <tr><td>نقيب - رائد</td><td>لكزس، سكويا</td></tr>
-                <tr><td>مقدم ركن - عقيد ركن</td><td>جيتور</td></tr>
-                <tr><td>عميد ركن - لواء ركن</td><td>تشالنجر، يوكن</td></tr>
-                <tr><td>فريق - فريق أول</td><td>جي كلاس</td></tr>
-            </table>
-        </div>
-
-        <div class="alert">
-            <h3>⚠️ مركبات الإذن الخاص</h3>
-            <p>يمنع استخراج الآتي إلا بإذن (قائد القوات، نائبه، الوزير، نائبه، المستشار):</p>
-            <p>يوكن/تاهو حرس وزير، هلي كوبتر، دباب سكاليد، طائرة استطلاع، مدرعات 1-2-3، مقاتلات F-22 & F-15، قوارب.</p>
-        </div>
-
-        <div class="card">
-            <h3>مركبات خاصة</h3>
-            <ul>
-                <li><strong>السيناريوهات:</strong> ارمادا</li>
-                <li><strong>وزير الدفاع ونوابه:</strong> روز رايز، BMW</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="violations" class="section">
-        <div class="card">
-            <h3>لوائح المخالفات والجزاءات العسكرية</h3>
-            
-            <h4>1. مخالفات شفهية (تنبيه 3 أيام)</h4>
-            <table>
-                <tr><th>المخالفة</th><th>نوع الجزاء</th></tr>
-                <tr><td>تعديل الزي العسكري / وشوم</td><td>شفهي</td></tr>
-                <tr><td>تظليل المركبات / إهمال العهدة</td><td>شفهي</td></tr>
-                <tr><td>إطلاق نار بدون تحذير</td><td>شفهي</td></tr>
-            </table>
-
-            <h4>2. الدرجة الأولى (تحذير وظيفي + سجن 5 أيام)</h4>
-            <table>
-                <tr><th>المخالفة</th><th>نوع الجزاء</th></tr>
-                <tr><td>سجن مواطن > 20 شهر</td><td>تحذير 1</td></tr>
-                <tr><td>استخراج مركبات غير مصرحة</td><td>تحذير 1</td></tr>
-                <tr><td>التلاعب في المستندات</td><td>تحذير 1</td></tr>
-            </table>
-
-            <h4>3. الدرجة الثانية والثالثة</h4>
-            <table>
-                <tr><th>المخالفة</th><th>الجزاء</th></tr>
-                <tr><td>سجن موظف وزاري / انتحال رتبة</td><td>7 أيام + حرمان جرد</td></tr>
-                <tr><td>تشويه سمعة القطاع / التكبر بالرتبة</td><td>10 أيام + كسر رتبة</td></tr>
-            </table>
-        </div>
-    </div>
-
-    <div id="training" class="section">
-        <div class="card">
-            <h3>دورة الطيران العسكري (RSAF)</h3>
-            <p>يمنع الإقلاع دون إذن مركز العمليات. تشمل الدورة:</p>
-            <ul>
-                <li>الهبوط المظلي (فاصل 3 ثواني بين الأفراد).</li>
-                <li>التعامل مع التضاريس (جبال، غابات، صحاري).</li>
-                <li>اختبار نظري وعملي (النجاح من 80%).</li>
-            </ul>
-        </div>
-        <div class="alert">
-            <h3>دورة مركز العمليات (إلزامية للقبول)</h3>
-            <p>يجب على كل عسكري اجتياز دورة العمليات للتعامل مع البلاغات وتوزيع الوحدات وكتابة التقارير (المسودات كل 15 دقيقة).</p>
-        </div>
-    </div>
-
-    <div id="uniforms" class="section">
-        <div class="card">
-            <h3>أكواد الزي الرسمي والمعدات</h3>
-            <span class="code-box">لبس ميدان أفراد: 59316417</span>
-            <span class="code-box">لبس مداهمات أفراد: 54516535</span>
-            <span class="code-box">لبس ضباط: 35889554</span>
-            <span class="code-box">لبس قيادة: 15981693</span>
-            <span class="code-box">القوات البرية: 21389850 | الجوية: 78824265</span>
-            <p><strong>الموجة اللاسلكية الرسمية: 3</strong></p>
-        </div>
-        <div class="card">
-            <h3>اختصارات الحركة (F8)</h3>
-            <span class="code-box">bind keyboard [الزر] "e airforce04" (التحية)</span>
-            <span class="code-box">bind keyboard [الزر] "e airforce02" (استعد)</span>
-            <span class="code-box">bind keyboard [الزر] "e airforce03" (استرح)</span>
-        </div>
-    </div>
-
-    <div id="admin" class="section">
-        <div id="admin-lock" class="card" style="text-align:center">
-            <h3>🔐 بوابة المسؤولين</h3>
-            <p>هذا القسم مخصص لمسؤولي القبول فقط</p>
-            <input type="password" id="admin-pass" placeholder="كلمة المرور الخاصة" style="width:200px; padding:10px; margin-bottom:10px">
-            <br>
-            <button onclick="checkAdminPass()" style="background:var(--gold); padding:10px 20px; cursor:pointer">تحقق</button>
-        </div>
-        <div id="admin-content" style="display:none">
-            <div class="card" style="border-right-color: green;">
-                <h3>لوحة تحكم القبول</h3>
-                <p>مرحباً بك في النظام الإداري. يمكنك الآن مراجعة سجلات المتدربين بناءً على القوانين المذكورة.</p>
-                <ul>
-                    <li>التأكد من تجاوز دورة العمليات.</li>
-                    <li>التأكد من الانضباط في الراديو.</li>
-                    <li>مراجعة سجل المخالفات السابق.</li>
-                </ul>
+        <div class="section">
+            <h2>⌨️ برمجة الاختصارات (F8)</h2>
+            <p>انسخ الأكواد التالية والصقها في قائمة F8 مع تغيير رقم (0) للزر المطلوب:</p>
+            <div class="code-box">
+                bind keyboard 0 "e airforce04" // تحية عسكرية<br>
+                bind keyboard 0 "e airforce02" // وضعية الاستعداد<br>
+                bind keyboard 0 "e airforce03" // وضعية الاستراحة
             </div>
         </div>
     </div>
 
-    <p class="footer-note">وزارة الدفاع - دولة مارفل © 2026 | بوابة التقارير الرسمية</p>
-</div>
+    <script>
+        function checkLogin() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            
+            // كلمة مرور المسؤولين (يمكنك تغييرها)
+            const adminPass = "MARVEL_2026";
 
-<script>
-    // تسجيل دخول الموقع
-    function siteLogin() {
-        const name = document.getElementById('user-name').value;
-        const id = document.getElementById('user-id').value;
-        if(name && id) {
-            document.getElementById('login-overlay').style.display = 'none';
-            document.getElementById('main-nav').style.display = 'flex';
-            document.getElementById('content-area').style.display = 'block';
-        } else {
-            alert("يجب إدخال الاسم والكود العسكري للدخول!");
+            if (user !== "") {
+                if (pass === "" || pass === adminPass) {
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    alert("مرحباً بك يا " + user + " في نظام وزارة الدفاع");
+                } else {
+                    document.getElementById('error-msg').style.display = 'block';
+                }
+            } else {
+                alert("يرجى إدخال الاسم العسكري أولاً");
+            }
         }
-    }
-
-    // التنقل بين الأقسام
-    function showSection(id) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-    }
-
-    // التحقق من مسؤول القبول
-    function checkAdminPass() {
-        const pass = document.getElementById('admin-pass').value;
-        // كلمة المرور الافتراضية
-        if(pass === "Marvel2026") {
-            document.getElementById('admin-lock').style.display = 'none';
-            document.getElementById('admin-content').style.display = 'block';
-        } else {
-            alert("كلمة مرور المسؤولين خاطئة!");
-        }
-    }
-</script>
-
+    </script>
 </body>
 </html>
