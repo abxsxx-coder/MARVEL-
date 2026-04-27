@@ -2,105 +2,162 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>النظام العسكري الموحد | MARVEL</title>
+    <title>النظام العسكري المتكامل | MARVEL</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <style>
-        :root { --primary-red: #8b0000; --gold: #d4af37; --bg-dark: #0a0a0a; }
-        body { background: var(--bg-dark); color: #e0e0e0; font-family: 'Arial', sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 1000px; margin: auto; border: 2px solid var(--primary-red); padding: 20px; background: #111; }
-        h1, h2, h3 { color: var(--gold); text-align: center; border-bottom: 1px solid var(--gold); padding-bottom: 10px; }
-        .military-card { background: #1a1a1a; border-right: 5px solid var(--primary-red); margin: 15px 0; padding: 15px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .law-table { width: 100%; border-collapse: collapse; margin: 10px 0; }
-        .law-table th, .law-table td { border: 1px solid #333; padding: 10px; text-align: right; }
-        .law-table th { background: var(--primary-red); color: white; }
-        .prohibited { color: #ff4444; font-weight: bold; border: 1px solid #ff4444; padding: 10px; }
-        .code-box { background: #000; color: #00ff00; padding: 5px; font-family: monospace; border: 1px dashed var(--gold); }
-        img { max-width: 100%; height: auto; border: 1px solid var(--gold); margin: 10px 0; display: block; margin-left: auto; margin-right: auto; }
+        :root { --primary: #8b0000; --gold: #d4af37; --bg: #0a0a0a; --card-bg: #151515; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', Tahoma; margin: 0; text-align: center; }
+        
+        /* التنقل */
+        nav { background: #111; padding: 15px; border-bottom: 2px solid var(--primary); display: flex; justify-content: center; gap: 10px; sticky: top; }
+        nav button { background: none; color: white; border: 1px solid var(--primary); padding: 10px 15px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        nav button:hover { background: var(--primary); }
+
+        .section { display: none; background: #111; margin: 20px auto; padding: 25px; width: 90%; max-width: 1100px; border-right: 5px solid var(--primary); text-align: right; }
+        .active { display: block; }
+
+        /* معرض الصور */
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px; }
+        .gallery img { width: 100%; border: 1px solid var(--gold); border-radius: 5px; transition: 0.3s; }
+        .gallery img:hover { transform: scale(1.05); }
+
+        /* الجداول والبيانات */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #000; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: center; }
+        th { background: var(--primary); }
+        .code-box { background: #000; color: #00ff00; padding: 5px; border: 1px dashed var(--gold); font-family: monospace; }
+        
+        input, select { width: 100%; padding: 12px; margin: 10px 0; background: #000; color: white; border: 1px solid #444; }
+        .btn-main { background: var(--primary); color: white; border: none; padding: 15px; cursor: pointer; width: 100%; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🎖️ بوابة القوات المسلحة - وزارة الدفاع</h1>
+<nav>
+    <button onclick="showTab('apply')">تسجيل طلب جديد</button>
+    <button onclick="checkAccess()">بوابة المقبولين</button>
+    <button onclick="checkAdminAccess()">لوحة الإدارة (للقادة)</button>
+</nav>
 
-    <section class="military-card">
-        <h2>📏 البروتوكولات والتشكيلات الميدانية</h2>
-        <div class="grid">
-            <div>
-                <h3>بروتوكول مناداة الرتب</h3>
-                <img src="33075ca33ac2b20a.png" alt="بروتوكول الرتب">
-            </div>
-            <div>
-                <h3>وضعية التحية العسكرية</h3>
-                <img src="salute.png" alt="التحية العسكرية">
-            </div>
-        </div>
-        <h3>التشكيل الميداني (الصفوف)</h3>
-        <img src="image.png" alt="التشكيل الميداني">
-    </section>
-
-    <section class="military-card">
-        <h2>⚖️ لائحة المخالفات والجزاءات العسكرية</h2>
-        <img src="IMG_0619.jpg" alt="لائحة المخالفات">
-        <p style="color: var(--gold);">⚠️ ملاحظة: تطبق الجزاءات بشرط موافقة الوزير أو نائبه + الختم الخاص.</p>
-    </section>
-
-    <section class="military-card">
-        <h2>🚗 الدليل اللوجستي للمركبات</h2>
-        
-        <div class="grid">
-            <div>
-                <h3 style="color: var(--gold);">📦 سيارات المهام والسناريوهات</h3>
-                <ul>
-                    <li>سيارة السناريوهات المخصصة: <strong>ارمادا</strong></li>
-                    <li>سيارة القيادة المسموحة: <strong>جي كلاس</strong></li>
-                </ul>
-            </div>
-            <div>
-                <h3 style="color: var(--gold);">👑 مركبات القيادة العليا</h3>
-                <p>مخصصة لوزير الدفاع ونائبه والمستشار:</p>
-                <ul>
-                    <li>روز رايز (الوزير)</li>
-                    <li>BMW</li>
-                    <li>يوكن / تاهو (حرس الوزير)</li>
-                    <li>سكاليد الحرس</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="prohibited">
-            <h3>🚫 مركبات يمنع استخراجها إلا بإذن رسمي</h3>
-            <p>من (قائد القوات المسلحة، نائبه، وزير الدفاع، نائبه، المستشار):</p>
-            <ul>
-                <li>طيران: هلي كوبتر، طيارة استطلاع، F-22، F-15</li>
-                <li>ميداني: ناقلة عسكرية، مدرعة (1، 2، 3)، دباب</li>
-                <li>بحري: قارب</li>
-            </ul>
-        </div>
-    </section>
-
-    <section class="military-card">
-        <h2>🛡️ التجهيزات والمعدات</h2>
-        <div class="grid">
-            <div>
-                <h3>أكواد الملابس</h3>
-                <ul>
-                    <li>ميدان أفراد: <span class="code-box">59316417</span></li>
-                    <li>مداهمات أفراد: <span class="code-box">54516535</span></li>
-                    <li>ضباط (ميدان/مداهمات): <span class="code-box">35889554</span></li>
-                    <li>القيادة: <span class="code-box">15981693</span></li>
-                    <li>القوات البرية: <span class="code-box">21389850</span></li>
-                    <li>القوات الجوية: <span class="code-box">78824265</span></li>
-                </ul>
-            </div>
-            <div>
-                <h3>الاتصالات والعمليات</h3>
-                <p>📻 الموجة الخاصة بالقوات المسلحة: <strong>3</strong></p>
-                <p>📍 الموقع: <strong>مركز وزارة الدفاع</strong></p>
-            </div>
-        </div>
-    </section>
+<div id="apply" class="section active">
+    <h2 style="color:var(--primary)">📩 استمارة طلب الالتحاق العسكري</h2>
+    <input type="text" id="name" placeholder="الاسم العسكري الثلاثي">
+    <input type="text" id="discord" placeholder="معرف الديسكورد (ID)">
+    <select id="branch">
+        <option>القوات البرية</option>
+        <option>القوات الجوية</option>
+        <option>الشرطة العسكرية</option>
+    </select>
+    <button class="btn-main" onclick="sendData()">إرسال الطلب الرسمي</button>
 </div>
 
+<div id="military_system" class="section">
+    <h1 style="color:var(--gold)">🎖️ مركز المعلومات والتعميمات</h1>
+    
+    <div style="background:#1a1a1a; padding:15px; margin-bottom:20px; border-right: 5px solid var(--gold);">
+        <h3>📻 البيانات التشغيلية</h3>
+        <p>الموجة الخاصة: <span class="gold-text">3</span> | الموقع: <span class="gold-text">مركز وزارة الدفاع</span></p>
+        <p>أكواد الملابس (أفراد): <span class="code-box">59316417</span> | (قيادة): <span class="code-box">15981693</span></p>
+    </div>
+
+    <h3>📸 معرض التعميمات والبروتوكولات (19 صورة)</h3>
+    <div class="gallery">
+        <img src="1.png" alt="تعميم 1">
+        <img src="2.png" alt="تعميم 2">
+        <img src="3.png" alt="تعميم 3">
+        <img src="33075ca33ac2b20a.png" alt="بروتوكول الرتب">
+        <img src="image.png" alt="التشكيلات">
+        <img src="IMG_0619.jpg" alt="لائحة المخالفات">
+        <script>
+            // كود لإضافة بقية الصور تلقائياً إذا كانت مسمّاة بالأرقام
+            for(let i=4; i<=19; i++) {
+                document.write(`<img src="${i}.png" alt="صورة ${i}" onerror="this.style.display='none'">`);
+            }
+        </script>
+    </div>
+</div>
+
+<div id="admin_panel" class="section">
+    <h2 style="color:var(--gold)">⚙️ لوحة تحكم القادة</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>الاسم</th>
+                <th>الديسكورد</th>
+                <th>الحالة</th>
+                <th>الإجراء</th>
+            </tr>
+        </thead>
+        <tbody id="app_list">
+            </tbody>
+    </table>
+</div>
+
+<script>
+    // إعدادات Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyBWB-zYDHuYlQ2afaxKuOXlWKI7xAgjmTw",
+        authDomain: "marvel-military.firebaseapp.com",
+        projectId: "marvel-military",
+        storageBucket: "marvel-military.firebasestorage.app",
+        appId: "1:477826729291:web:95909db6cb7ba511fd94ce"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    function showTab(tabId) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if(tabId === 'admin_panel') loadApps();
+    }
+
+    function checkAccess() {
+        const p = prompt("أدخل رمز الوصول العسكري:");
+        if(p === "MARVEL2026") showTab('military_system');
+        else alert("رمز خاطئ!");
+    }
+
+    function checkAdminAccess() {
+        const p = prompt("رمز القادة السري:");
+        if(p === "LEADER2026") showTab('admin_panel');
+        else alert("غير مصرح لك!");
+    }
+
+    function sendData() {
+        const n = document.getElementById('name').value;
+        const d = document.getElementById('discord').value;
+        if(n && d) {
+            db.collection("applications").add({
+                military_name: n, discord_id: d, status: 'قيد الانتظار', timestamp: new Date().toLocaleString()
+            }).then(() => { alert("تم الإرسال!"); location.reload(); });
+        }
+    }
+
+    function loadApps() {
+        const list = document.getElementById('app_list');
+        list.innerHTML = "";
+        db.collection("applications").orderBy("timestamp", "desc").get().then(snap => {
+            snap.forEach(doc => {
+                const data = doc.data();
+                list.innerHTML += `
+                    <tr>
+                        <td>${data.military_name}</td>
+                        <td>${data.discord_id}</td>
+                        <td>${data.status}</td>
+                        <td>
+                            <button onclick="update('${doc.id}', 'مقبول ✅')" style="background:green; color:white;">قبول</button>
+                            <button onclick="update('${doc.id}', 'مرفوض ❌')" style="background:red; color:white;">رفض</button>
+                        </td>
+                    </tr>`;
+            });
+        });
+    }
+
+    function update(id, s) {
+        db.collection("applications").doc(id).update({status: s}).then(() => loadApps());
+    }
+</script>
 </body>
 </html>
