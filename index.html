@@ -7,28 +7,30 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <style>
         :root { --primary: #ff0000; --gold: #d4af37; --bg: #050505; }
-        body { background: var(--bg); color: white; font-family: 'Segoe UI', Tahoma; margin: 0; text-align: center; }
-        nav { background: #111; padding: 15px; border-bottom: 2px solid var(--primary); }
-        nav button { background: none; color: white; border: 1px solid var(--primary); padding: 10px 20px; cursor: pointer; margin: 0 5px; }
-        .hero { padding: 30px; background: #000; }
-        .section { display: none; background: #111; margin: 20px auto; padding: 25px; width: 90%; max-width: 800px; border-right: 5px solid var(--primary); text-align: right; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', Tahoma; margin: 0; text-align: center; line-height: 1.6; }
+        nav { background: #111; padding: 15px; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; }
+        nav button { background: none; color: white; border: 1px solid var(--primary); padding: 10px 20px; cursor: pointer; margin: 0 5px; font-weight: bold; }
+        .section { display: none; background: #111; margin: 20px auto; padding: 25px; width: 95%; max-width: 900px; border-right: 5px solid var(--primary); text-align: right; }
         .active { display: block; }
-        .protocol-img { width: 100%; border: 1px solid var(--gold); margin: 15px 0; }
+        .command-card { background: #000; border: 1px solid #333; padding: 15px; margin: 15px 0; border-radius: 8px; }
+        .code-box { background: #222; color: #00ff00; padding: 10px; font-family: monospace; direction: ltr; text-align: left; border-radius: 5px; margin: 10px 0; border-left: 3px solid var(--gold); }
+        .protocol-img { width: 100%; max-width: 500px; border: 1px solid var(--gold); margin: 10px 0; display: block; }
         input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #000; color: white; border: 1px solid #444; }
-        .btn { background: var(--primary); color: white; border: none; padding: 15px; cursor: pointer; width: 100%; font-weight: bold; }
+        .btn { background: var(--primary); color: white; border: none; padding: 15px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
 <nav>
-    <button onclick="showTab('apply')">تقديم طلب انضمام</button>
+    <button onclick="showTab('apply')">تقديم الطلب</button>
     <button onclick="showTab('rules')">القوانين والبروتوكولات</button>
+    <button onclick="showTab('commands')">أوامر الميدان (F8)</button>
 </nav>
 
 <div id="apply" class="section active">
-    <h2>📩 طلب التحاق عسكري</h2>
+    <h2 style="color:var(--primary)">📩 طلب التحاق عسكري</h2>
     <input type="text" id="name" placeholder="الاسم العسكري الثلاثي">
-    <input type="text" id="discord" placeholder="معرف الديسكورد">
+    <input type="text" id="discord" placeholder="معرف الديسكورد (ID)">
     <select id="branch">
         <option>القوات البرية</option>
         <option>القوات الجوية</option>
@@ -38,18 +40,39 @@
 </div>
 
 <div id="rules" class="section">
-    <h2>📜 القوانين العامة</h2>
-    <ul>
-        <li>يمنع منعاً باتاً الخروج عن النص العسكري أثناء الدوام.</li>
-        <li>الالتزام بالراديو والترددات المحددة لكل قطاع.</li>
-        <li>احترام الرتب الأعلى والتقيد ببروتوكول المناداة.</li>
-    </ul>
-    
-    <h2>🎖️ بروتوكول مناداة الرتب</h2>
+    <h2 style="color:var(--gold)">🎖️ بروتوكول مناداة الرتب</h2>
     <img src="image_d819d0.png" class="protocol-img" alt="بروتوكول الرتب">
+    <hr style="border: 0.5px solid #333;">
+    <h3>⚠️ تعميم هام</h3>
+    <p>السلام عليكم ورحمة الله وبركاته - تحية طيبة أما بعد</p>
+    <p>يجب الالتزام بما يصدر بهذا التعميم ومباشرته فور صدوره.</p>
+</div>
+
+<div id="commands" class="section">
+    <h2 style="color:var(--gold)">🎮 أوامر الميدان والاختصارات</h2>
+    <p>لضبط الأوامر داخل المدينة، انسخ الكود ثم الصقه في قائمة F8 مع تغيير الرقم (0) للزر الذي تفضله:</p>
+
+    <div class="command-card">
+        <h3>1- أمر السلود (التحية)</h3>
+        <img src="salute.png" class="protocol-img" alt="صورة التحية">
+        <div class="code-box">bind keyboard 0 "e airforce04"</div>
+    </div>
+
+    <div class="command-card">
+        <h3>2- أمر استعد</h3>
+        <img src="stand.png" class="protocol-img" alt="صورة استعد">
+        <div class="code-box">bind keyboard 0 "e airforce02"</div>
+    </div>
+
+    <div class="command-card">
+        <h3>3- أمر استرح</h3>
+        <img src="relax.png" class="protocol-img" alt="صورة استرح">
+        <div class="code-box">bind keyboard 0 "e airforce03"</div>
+    </div>
 </div>
 
 <script>
+    // إعدادات Firebase الخاصة بك
     const firebaseConfig = {
         apiKey: "AIzaSyBWB-zYDHuYlQ2afaxKuOXlWKI7xAgjmTw",
         authDomain: "marvel-military.firebaseapp.com",
@@ -69,13 +92,13 @@
     }
 
     function sendData() {
-        const n = document.getElementById('name').value;
-        const d = document.getElementById('discord').value;
-        const b = document.getElementById('branch').value;
-        if(n && d) {
+        const name = document.getElementById('name').value;
+        const discord = document.getElementById('discord').value;
+        const branch = document.getElementById('branch').value;
+        if(name && discord) {
             db.collection("applications").add({
-                name: n, discord: d, branch: b, date: new Date().toLocaleString()
-            }).then(() => alert("تم الإرسال! يمكنك الآن الانتقال لصفحة القوانين للقراءة."));
+                military_name: name, discord_id: discord, division: branch, timestamp: new Date().toLocaleString()
+            }).then(() => alert("تم الإرسال بنجاح!"));
         }
     }
 </script>
