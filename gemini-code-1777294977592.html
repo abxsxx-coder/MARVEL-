@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة القوات المسلحة | MARVEL RP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff0000;
+            --secondary: #1a1a1a;
+            --gold: #d4af37;
+        }
+
+        body {
+            background: #050505;
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* تأثير الخلفية العسكرية */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1579546671307-b3f85e1bb900?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        h1 { font-size: 3.5rem; letter-spacing: 5px; text-shadow: 0 0 20px var(--primary); margin-bottom: 10px; }
+        .motto { color: var(--gold); font-weight: bold; margin-bottom: 30px; letter-spacing: 2px; }
+
+        /* القائمة الرئيسية */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 200px);
+            gap: 20px;
+        }
+
+        .btn-card {
+            background: rgba(255, 0, 0, 0.05);
+            border: 1px solid var(--primary);
+            padding: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        .btn-card:hover {
+            background: var(--primary);
+            color: black;
+            box-shadow: 0 0 30px var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* أقسام المحتوى */
+        .section-container {
+            display: none;
+            padding: 50px;
+            background: #0a0a0a;
+            border-top: 2px solid var(--primary);
+            animation: slideUp 0.5s ease;
+        }
+
+        .active { display: block; }
+
+        .law-item {
+            background: #111;
+            margin: 10px 0;
+            padding: 15px;
+            border-right: 5px solid var(--primary);
+        }
+
+        .rank-protocol {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .rank-card {
+            background: #151515;
+            padding: 20px;
+            border: 1px solid var(--gold);
+            width: 250px;
+            text-align: center;
+        }
+
+        /* بوابة التقديم */
+        .apply-form {
+            max-width: 600px;
+            margin: auto;
+            background: #111;
+            padding: 30px;
+            border: 1px solid var(--primary);
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #000;
+            border: 1px solid #444;
+            color: white;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <img src="https://i.imgur.com/example-logo.png" width="150" alt="لوغو القوات المسلحة">
+    <h1>القوات المسلحة - مارفل</h1>
+    <p class="motto">﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾</p>
+    
+    <div class="menu-grid">
+        <div class="btn-card" onclick="showSection('laws')"><i class="fas fa-gavel"></i><br>القوانين والأنظمة</div>
+        <div class="btn-card" onclick="showSection('protocol')"><i class="fas fa-medal"></i><br>بروتوكول المناداة</div>
+        <div class="btn-card" onclick="showSection('complaints')"><i class="fas fa-envelope-open-text"></i><br>مرجع الشكاوي</div>
+        <div class="btn-card" onclick="showSection('apply')"><i class="fas fa-user-plus"></i><br>طلب انضمام</div>
+        <div class="btn-card" onclick="showSection('hq')"><i class="fas fa-map-marker-alt"></i><br>موقع المقر</div>
+    </div>
+</div>
+
+<div id="laws" class="section-container">
+    <h2><i class="fas fa-book-dead"></i> اللوائح والأنظمة العسكرية</h2>
+    <div class="law-item">1. احترام المواطن وجميع العساكر وتمثيل الشخصية العسكرية قولاً وفعلأ.</div>
+    <div class="law-item">2. التواجد الإلزامي في راديو العمليات (ديسكورد + مدينة).</div>
+    <div class="law-item">3. يمنع مطاردة المواطن خارج لوس إلا بإذن من مركز العمليات.</div>
+    <div class="law-item">4. الالتزام بالقيافة العسكرية (البريهة وغيرها) والمحاسبة فورية عند المخالفة.</div>
+    <p>... (باقي القوانين الـ 23 مضافة في النظام الداخلي)</p>
+</div>
+
+<div id="protocol" class="section-container">
+    <h2 style="color: var(--gold);"><i class="fas fa-star"></i> بروتوكول مناداة الرتب</h2>
+    <div class="rank-protocol">
+        <div class="rank-card">
+            <h3>معالي</h3>
+            <p>من فريق إلى فريق أول</p>
+            <small>مثال: معالي الفريق أول أبو جيزن</small>
+        </div>
+        <div class="rank-card">
+            <h3>سعادة</h3>
+            <p>من مقدم إلى لواء</p>
+            <small>مثال: سعادة اللواء أبو جيزن</small>
+        </div>
+        <div class="rank-card">
+            <h3>حضرة</h3>
+            <p>من ملازم إلى رائد</p>
+            <small>مثال: حضرة الرائد أبو جيزن</small>
+        </div>
+    </div>
+</div>
+
+<div id="complaints" class="section-container">
+    <h2><i class="fas fa-user-shield"></i> الهيكل التنظيمي للشكاوي</h2>
+    <table style="width: 100%; text-align: right; background: #111; padding: 20px;">
+        <tr><th>الجهة المشتكى عليها</th><th>المرجع المطلوب</th></tr>
+        <tr><td>وزير الدفاع / النائب / المستشار</td><td>ضابط أمن الوزارات A-6 / قائد القوات المشتركة K-1</td></tr>
+        <tr><td>قائد القوات المسلحة / النائب</td><td>وزير الدفاع / النائب / المستشار</td></tr>
+        <tr><td>الضباط (كود M)</td><td>القيادة من L-10 إلى L-4</td></tr>
+    </table>
+</div>
+
+<div id="apply" class="section-container">
+    <h2><i class="fas fa-file-signature"></i> بوابة التجنيد والقبول</h2>
+    <div class="apply-form">
+        <label>اختر الإدارة المطلوب الانضمام إليها:</label>
+        <select id="dept">
+            <option>إدارة التدريبات العسكرية</option>
+            <option>إدارة المحاسبات العسكرية</option>
+            <option>إدارة الموارد البشرية</option>
+            <option>إدارة القبول والتجنيد</option>
+        </select>
+        <input type="text" placeholder="الاسم العسكري">
+        <input type="text" placeholder="الرقم العسكري / معرف الديسكورد">
+        <textarea placeholder="تحدث عن خبراتك العسكرية السابقة..."></textarea>
+        <button class="btn-card" style="width: 100%;" onclick="sendToLogs()">إرسال الطلب</button>
+    </div>
+</div>
+
+<div id="hq" class="section-container">
+    <h2><i class="fas fa-map"></i> قيادة المناطق التابعة</h2>
+    <div class="law-item">المقر الرئيسي: مدينة ساندي شورز وبوليتو.</div>
+    <div class="law-item">تنبيه: القوات المسلحة هي المسؤول الأول عن ساندي وبوليتو ولها حق فرض القوانين.</div>
+</div>
+
+<script>
+    function showSection(id) {
+        // إخفاء جميع الأقسام
+        document.querySelectorAll('.section-container').forEach(sec => sec.classList.remove('active'));
+        // إظهار القسم المطلوب
+        document.getElementById(id).classList.add('active');
+        // النزول للأسفل تلقائياً
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function sendToLogs() {
+        alert("يتم الآن إرسال بياناتك إلى سجلات Firebase.. سيتم التواصل معك عبر الديسكورد.");
+    }
+</script>
+
+</body>
+</html>
