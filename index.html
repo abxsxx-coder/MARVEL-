@@ -4,301 +4,239 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>وزارة الدفاع لدولة مارفل - البوابة الرسمية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #8b0000; /* أحمر عسكري */
-            --secondary-color: #d4af37; /* ذهبي */
-            --bg-dark: #0a0a0a;
-            --card-bg: #161616;
-            --text-light: #f0f0f0;
+            --primary: #5c0000;
+            --gold: #c5a021;
+            --dark-bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --text: #e0e0e0;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--dark-bg);
+            color: var(--text);
             font-family: 'Cairo', sans-serif;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* القائمة العلوية */
+        /* Nav Bar */
         nav {
             background: #000;
-            padding: 15px;
-            border-bottom: 3px solid var(--primary-color);
+            padding: 1rem;
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary);
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         nav button {
             background: transparent;
-            color: #fff;
-            border: 1px solid var(--secondary-color);
-            padding: 8px 18px;
+            color: white;
+            border: 1px solid var(--gold);
+            padding: 8px 15px;
             cursor: pointer;
+            border-radius: 4px;
             font-weight: bold;
-            border-radius: 5px;
             transition: 0.3s;
         }
 
-        nav button:hover {
-            background: var(--primary-color);
-            border-color: var(--primary-color);
-        }
+        nav button:hover { background: var(--primary); }
 
-        .container {
-            max-width: 1100px;
-            margin: 20px auto;
-            padding: 20px;
-        }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        
+        .section { display: none; }
+        .active { display: block; animation: fadeIn 0.5s; }
 
-        .section { display: none; animation: fadeIn 0.5s ease; }
-        .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .header-main {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('military-bg.jpg'); /* اختياري */
-            background-size: cover;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
+        /* General Styling */
+        .hero { text-align: center; padding: 3rem 1rem; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)); border-radius: 15px; margin-bottom: 2rem; }
+        .hero h1 { color: var(--gold); font-size: 2.5rem; margin: 0; }
 
-        .header-main h1 {
-            font-size: 2.5rem;
-            color: var(--secondary-color);
-            margin: 0;
-            text-shadow: 2px 2px #000;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-right: 5px solid var(--primary-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        h3 { color: var(--secondary-color); border-bottom: 1px solid #444; padding-bottom: 10px; margin-top: 0; }
+        .card { background: var(--card-bg); padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; border-right: 4px solid var(--primary); }
+        .card h3 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; }
         
-        /* أسطول المركبات */
-        .grid-fleet {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
+        .important { background: #4b0000; padding: 10px; border-radius: 5px; font-weight: bold; margin: 10px 0; }
 
-        .fleet-box {
-            background: #222;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #333;
-        }
+        /* Tables & Lists */
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { border: 1px solid #333; padding: 12px; text-align: right; }
+        th { background: var(--primary); color: white; }
 
-        .fleet-box h4 { margin: 0 0 10px 0; color: #fff; font-size: 1rem; }
-        .fleet-box p { margin: 0; color: #bbb; font-size: 0.9rem; }
+        .code-box { background: #000; color: #00ff00; padding: 10px; font-family: monospace; border-radius: 5px; display: block; margin: 5px 0; }
 
-        /* الألوان الخاصة بالقيادة */
-        .royal-card {
-            border-right: 5px solid var(--secondary-color) !important;
-            background: rgba(212, 175, 55, 0.05);
-        }
+        /* Login System */
+        #auth-box { text-align: center; padding: 2rem; border: 1px solid var(--gold); border-radius: 10px; }
+        input[type="password"] { padding: 10px; width: 250px; border-radius: 5px; border: 1px solid #444; background: #222; color: white; }
+        .btn-auth { background: var(--gold); color: black; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; }
 
-        /* كود الملابس والأوامر */
-        .code-display {
-            background: #000;
-            color: #00ff00;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: monospace;
-            display: block;
-            margin: 10px 0;
-            border-left: 3px solid #00ff00;
-        }
-
-        .img-instruction {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 5px;
-            margin-top: 10px;
-            border: 2px solid #444;
-        }
-
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; text-align: center; border: 1px solid #333; }
-        th { background: var(--primary-color); color: white; }
-        td { background: #1a1a1a; }
-
-        .important-note {
-            background: #4a0000;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
 
 <nav>
-    <button onclick="showSection('home')">الرئيسية</button>
-    <button onclick="showSection('fleet')">أسطول المركبات</button>
-    <button onclick="showSection('uniform')">الأطقم والأكواد</button>
-    <button onclick="showSection('training')">أكاديمية الطيران</button>
-    <button onclick="showSection('ops')">مركز العمليات</button>
-    <button onclick="showSection('protocols')">بروتوكولات الرتب</button>
+    <button onclick="switchTab('home')">الرئيسية</button>
+    <button onclick="switchTab('vehicles')">أسطول المركبات</button>
+    <button onclick="switchTab('uniforms')">الأطقم العسكرية</button>
+    <button onclick="switchTab('training')">الأكاديميات والدورات</button>
+    <button onclick="switchTab('ops')">مركز العمليات</button>
+    <button onclick="switchTab('admin')">مسؤولين القبول 🔒</button>
 </nav>
 
 <div class="container">
 
     <div id="home" class="section active">
-        <div class="header-main">
+        <div class="hero">
             <h1>وزارة الدفاع لدولة مارفل</h1>
-            <p>النظام - الانضباط - القوة</p>
+            <p>- تحية طيبة اما بعد -</p>
+            <p>▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂</p>
         </div>
         <div class="card">
-            <h3>تحية طيبة وبعد..</h3>
-            <p>أهلاً بك في البوابة الرسمية لوزارة الدفاع. يُعد الالتزام بما يصدر في هذا الموقع إلزامياً لجميع منسوبي القوات المسلحة بمختلف رتبهم.</p>
-            <div class="important-note">ملاحظة: عند القبول، يجب على الفرد الاطلاع على كافة القوانين والأنظمة الموضحة هنا قبل مباشرة العمل الميداني.</div>
-        </div>
-    </div>
-
-    <div id="fleet" class="section">
-        <div class="card">
-            <h3>المركبات المسموحة حسب الرتبة</h3>
-            <div class="grid-fleet">
-                <div class="fleet-box"><h4>جندي مستجد - جندي أول</h4><p>فورد فكتوريا، كابرس</p></div>
-                <div class="fleet-box"><h4>عريف - وكيل رقيب</h4><p>كامري 2025، تاهو</p></div>
-                <div class="fleet-box"><h4>رقيب - رئيس رقباء</h4><p>باترول، كدلك</p></div>
-                <div class="fleet-box"><h4>ملازم - ملازم أول</h4><p>تورس، تشارجر</p></div>
-                <div class="fleet-box"><h4>نقيب - رائد</h4><p>لكزس، سكويا</p></div>
-                <div class="fleet-box"><h4>مقدم ركن - عقيد ركن</h4><p>جيتور</p></div>
-                <div class="fleet-box"><h4>عميد ركن - لواء ركن</h4><p>تشالنجر، يوكن</p></div>
-                <div class="fleet-box"><h4>فريق ركن - فريق أول ركن</h4><p>جي كلاس</p></div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>مركبات المهام والسيناريوهات</h3>
-            <div class="grid-fleet">
-                <div class="fleet-box"><h4>السيارة المخصصة للسيناريوهات</h4><p>ارمادا</p></div>
-                <div class="fleet-box"><h4>السيارة المسموحة للقيادة العامة</h4><p>جي كلاس</p></div>
-            </div>
-        </div>
-
-        <div class="card royal-card">
-            <h3>👑 مركبات القيادة العليا والوزارة</h3>
-            <p>مخصصة لـ (وزير الدفاع، نائب الوزير، مستشار الوزير):</p>
+            <h3>بروتوكولات مناداة الرتب</h3>
             <ul>
-                <li>سيارة الوزير: روز رايز</li>
-                <li>سيارة الوزير: BMW</li>
+                <li><strong>معالي [رتبته]:</strong> من فريق إلى فريق أول (مثال: معالي الفريق أول خالد)</li>
+                <li><strong>سعادة [رتبته]:</strong> من مقدم إلى لواء (مثال: سعادة لواء أحمد)</li>
+                <li><strong>حضرة [رتبته]:</strong> من ملازم إلى رائد (مثال: حضرة النقيب فهد)</li>
             </ul>
         </div>
-
-        <div class="card royal-card">
-            <h3>⛔ مركبات يمنع استخراجها إلا بإذن رسمي</h3>
-            <p>يمنع استخراج هذه المركبات إلا بإذن من: (قائد القوات، نائب قائد القوات، وزير الدفاع، نائبه، مستشاره)</p>
-            <div class="grid-fleet">
-                <div class="fleet-box"><h4>الحرس الملكي / الوزير</h4><p>يوكن حرس، تاهو حرس، سكاليد الحرس، دباب الحرس</p></div>
-                <div class="fleet-box"><h4>الدعم الثقيل</h4><p>ناقلة عسكرية، مدرعة 1، مدرعة 2، مدرعة 3</p></div>
-                <div class="fleet-box"><h4>القوات الجوية والبحرية</h4><p>طيارة استطلاع، F-22، F-15، هلي كوبتر، قارب</p></div>
-            </div>
+        <div class="card">
+            <h3>أوامر الحركة (F8)</h3>
+            <p>قم بنسخ الاختصارات التالية ووضعها في قائمة F8 باللعبة:</p>
+            <span class="code-box">bind keyboard 0 "e airforce04" (التحية)</span>
+            <span class="code-box">bind keyboard 0 "e airforce02" (استعد)</span>
+            <span class="code-box">bind keyboard 0 "e airforce03" (استرح)</span>
+            <p class="important">ملاحظة: استبدل الرقم 0 بالزر الذي يناسبك.</p>
         </div>
     </div>
 
-    <div id="uniform" class="section">
+    <div id="vehicles" class="section">
         <div class="card">
-            <h3>أكواد الملابس الرسمية</h3>
+            <h3>السيارات المخصصة والمسموحة</h3>
             <table>
-                <tr><th>القطاع / المهمة</th><th>الكود العسكري</th><th>ملاحظات</th></tr>
-                <tr><td>ميدان أفراد</td><td>59316417</td><td>يجب تغيير الرتبة من الشارات</td></tr>
-                <tr><td>مداهمات أفراد</td><td>54516535</td><td>يجب تغيير الرتبة</td></tr>
-                <tr><td>ضباط (ميدان ومداهمات)</td><td>35889554</td><td>يمكن إزالة الماسك</td></tr>
-                <tr><td>القيادة</td><td>15981693</td><td>-</td></tr>
-                <tr><td>القوات البرية [RSLF]</td><td>21389850</td><td>-</td></tr>
-                <tr><td>القوات الجوية [RSAF]</td><td>78824265</td><td>-</td></tr>
+                <tr><th>الفئة</th><th>السيارة المسموحة</th></tr>
+                <tr><td>جندي مستجد - جندي أول</td><td>فورد فكتوريا، كابرس</td></tr>
+                <tr><td>عريف - وكيل رقيب</td><td>كامري 2025، تاهو</td></tr>
+                <tr><td>رقيب - رئيس رقباء</td><td>باترول، كدلك</td></tr>
+                <tr><td>ملازم - ملازم أول</td><td>تورس، تشارجر</td></tr>
+                <tr><td>نقيب - رائد</td><td>لكزس، سكويا</td></tr>
+                <tr><td>مقدم ركن - عقيد ركن</td><td>جيتور</td></tr>
+                <tr><td>عميد ركن - لواء ركن</td><td>تشالنجر، يوكن</td></tr>
+                <tr><td>فريق ركن - فريق أول ركن</td><td>جي كلاس</td></tr>
             </table>
         </div>
 
+        <div class="card" style="border-right-color: var(--gold);">
+            <h3>⛔ سيارات الإذن الخاص (يمنع استخراجها)</h3>
+            <p>يمنع استخراجها إلا بإذن من: (قائد القوات، نائبه، وزير الدفاع، نائبه، مستشاره)</p>
+            <ul>
+                <li>يوكن/تاهو حرس وزير - سكاليد حرس - دباب حرس</li>
+                <li>طيارة استطلاع - ناقلة عسكرية - مدرعات (1، 2، 3)</li>
+                <li>مقاتلات F-15، F-22 - هلي كوبتر - قوارب</li>
+            </ul>
+        </div>
+
         <div class="card">
-            <h3>الأوامر العسكرية (F8)</h3>
-            <p>افتح قائمة F8 باللعبة والصق الاختصار مع تغيير الرقم (0) للزر المناسب لك:</p>
-            <div class="grid-fleet">
-                <div class="fleet-box">
-                    <h4>1- أمر السلود (التحية)</h4>
-                    <span class="code-display">bind keyboard 0 "e airforce04"</span>
-                    <img src="1.png" class="img-instruction" alt="تحية عسكرية">
-                </div>
-                <div class="fleet-box">
-                    <h4>2- أمر (استعد)</h4>
-                    <span class="code-display">bind keyboard 0 "e airforce02"</span>
-                    <img src="2.png" class="img-instruction" alt="استعداد">
-                </div>
-                <div class="fleet-box">
-                    <h4>3- أمر (استرح)</h4>
-                    <span class="code-display">bind keyboard 0 "e airforce03"</span>
-                    <img src="3.png" class="img-instruction" alt="استراحة">
-                </div>
-            </div>
+            <h3>السيارات الخاصة للقيادة والسيناريوهات</h3>
+            <ul>
+                <li><strong>السيناريوهات:</strong> ارمادا</li>
+                <li><strong>القيادة العامة:</strong> جي كلاس</li>
+                <li><strong>وزير الدفاع ونوابه:</strong> روز رايز، BMW</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="uniforms" class="section">
+        <div class="card">
+            <h3>أكواد الملابس الرسمية</h3>
+            <table>
+                <tr><th>القطاع</th><th>الكود</th><th>ملاحظة</th></tr>
+                <tr><td>ميدان أفراد</td><td>59316417</td><td>تغيير الرتبة من الشارة</td></tr>
+                <tr><td>مداهمات أفراد</td><td>54516535</td><td>تغيير الرتبة إلزامية</td></tr>
+                <tr><td>ضباط (ميدان/مداهمات)</td><td>35889554</td><td>يمكن إزالة الماسك</td></tr>
+                <tr><td>القيادة العليا</td><td>15981693</td><td>-</td></tr>
+                <tr><td>القوات البرية [RSLF]</td><td>21389850</td><td>-</td></tr>
+                <tr><td>القوات الجوية [RSAF]</td><td>78824265</td><td>-</td></tr>
+            </table>
+            <p><strong>الموجة الخاصة بالراديو: 3</strong></p>
         </div>
     </div>
 
     <div id="training" class="section">
         <div class="card">
-            <h3>برنامج التأهيل الجوي العسكري</h3>
-            <h4>محاور دورة الطيران العسكري:</h4>
+            <h3>دورة الطيران العسكري</h3>
+            <p>دورة تأهيلية صارمة تشمل:</p>
             <ul>
-                <li>التحكم بالمناورة الجوية والتعامل مع التضاريس.</li>
-                <li>إدارة العمليات المشتركة مع القوات البرية.</li>
-                <li>بروتوكولات الهبوط المظلي (إلزامي فاصل 2-3 ثواني بين القافزين).</li>
-                <li>إجراءات السلامة والطوارئ (نسبة النجاح 80%).</li>
+                <li>الالتزام بالأوامر من مركز العمليات (لا اجتهاد فردي).</li>
+                <li>التنسيق مع القوات البرية في الهبوط المظلي.</li>
+                <li>قاعدة القفز: فاصل 2-3 ثواني بين كل فرد.</li>
+                <li>نسبة النجاح الدنيا: 80%.</li>
             </ul>
-            <div class="important-note">يُمنع الإقلاع أو تغيير المسار دون إذن مباشر من مركز العمليات.</div>
+        </div>
+        <div class="card">
+            <h3>دورة مركز العمليات (إلزامية)</h3>
+            <div class="important">يعد الحصول على هذه الدورة شرطاً أساسياً للميدان.</div>
+            <ul>
+                <li>الأولوية في استلام العمليات للرتب: (وكيل رقيب إلى رئيس رقباء).</li>
+                <li>إعادة التحضير كل 15 دقيقة.</li>
+                <li>يمنع الجدال مع العمليات داخل التردد؛ أي اعتراض يوثق بفيديو.</li>
+            </ul>
         </div>
     </div>
 
     <div id="ops" class="section">
         <div class="card">
-            <h3>قوانين مركز العمليات (إلزامية)</h3>
-            <div class="important-note">الزامي على كل فرد أخذ دورة مركز العمليات قبل التكليف بالمهمة.</div>
+            <h3>قواعد الميدان والتحضير</h3>
             <ol>
-                <li>الأولوية في استلام العمليات للرتب: (وكيل رقيب، رقيب، رقيب أول، رئيس رقباء).</li>
-                <li>يتم تنفيذ اصطفاف عسكري دوري كل ساعة.</li>
-                <li>يمنع الجدال مع العمليات داخل التردد؛ أي اعتراض يوثق بمقطع ويرسل للمسؤولين.</li>
-                <li>يجب إعادة التحضير كل 15 دقيقة لضمان جاهزية الميدان.</li>
-                <li>الموجة الخاصة بالقوات المسلحة هي: <strong>3</strong></li>
+                <li>الاصطفاف العسكري دوري كل ساعة.</li>
+                <li>إرسال 4 مسودات تقارير كل فترة (كل 15 دقيقة).</li>
+                <li>يمنع تسجيل الدخول/الخروج عبر تردد المدينة.</li>
+                <li>إذا لم تستجب الوحدة لـ 3 نداءات، يتم حذف الكود من التقرير فوراً.</li>
             </ol>
         </div>
     </div>
 
-    <div id="protocols" class="section">
-        <div class="card">
-            <h3>بروتوكولات مناداة الرتب</h3>
-            <p>يجب الالتزام بالمناداة الرسمية لضمان الانضباط العسكري:</p>
-            <ul>
-                <li><strong>الفئة الأولى:</strong> (من فريق إلى فريق أول) -> المنادى: <strong>معالي [الرتبة]</strong> (مثال: معالي الفريق أول خالد).</li>
-                <li><strong>الفئة الثانية:</strong> (من مقدم إلى لواء) -> المنادى: <strong>سعادة [الرتبة]</strong> (مثال: سعادة اللواء فهد).</li>
-                <li><strong>الفئة الثالثة:</strong> (من ملازم إلى رائد) -> المنادى: <strong>حضرة [الرتبة]</strong> (مثال: حضرة النقيب محمد).</li>
-            </ul>
+    <div id="admin" class="section">
+        <div id="auth-box">
+            <h3>🔐 الدخول للمسؤولين فقط</h3>
+            <p>يرجى إدخال كلمة المرور للوصول إلى لوحة القبول</p>
+            <input type="password" id="pass-field" placeholder="كلمة المرور...">
+            <button class="btn-auth" onclick="checkPass()">دخول</button>
+        </div>
+        <div id="admin-content" style="display: none;">
+            <div class="card">
+                <h3>لوحة القبول والتحكم</h3>
+                <p>أهلاً بك يا سيادة المسؤول. هنا يمكنك مراجعة طلبات الانضمام بناءً على المعايير العسكرية المذكورة في الموقع.</p>
+                <button onclick="alert('لا توجد طلبات جديدة')">تحديث القائمة</button>
+            </div>
         </div>
     </div>
 
 </div>
 
 <script>
-    function showSection(id) {
+    function switchTab(tabId) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+        document.getElementById(tabId).classList.add('active');
         window.scrollTo(0, 0);
+    }
+
+    function checkPass() {
+        const pass = document.getElementById('pass-field').value;
+        // كلمة المرور الافتراضية: Marvel2026
+        if(pass === "Marvel2026") {
+            document.getElementById('auth-box').style.display = 'none';
+            document.getElementById('admin-content').style.display = 'block';
+        } else {
+            alert("كلمة المرور غير صحيحة!");
+        }
     }
 </script>
 
