@@ -2,85 +2,62 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>بوابة القوات المسلحة | MARVEL</title>
+    <title>نظام الإدارة العسكرية | MARVEL</title>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
     <style>
         :root { --primary: #ff0000; --gold: #d4af37; --bg: #050505; }
-        body { background: var(--bg); color: white; font-family: 'Segoe UI', Tahoma; margin: 0; text-align: center; line-height: 1.6; }
-        nav { background: #111; padding: 15px; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', Tahoma; margin: 0; text-align: center; }
+        nav { background: #111; padding: 15px; border-bottom: 2px solid var(--primary); }
         nav button { background: none; color: white; border: 1px solid var(--primary); padding: 10px 20px; cursor: pointer; margin: 0 5px; font-weight: bold; }
-        .section { display: none; background: #111; margin: 20px auto; padding: 25px; width: 95%; max-width: 900px; border-right: 5px solid var(--primary); text-align: right; }
+        .section { display: none; background: #111; margin: 20px auto; padding: 25px; width: 90%; max-width: 800px; border-right: 5px solid var(--primary); text-align: right; }
         .active { display: block; }
-        .command-card { background: #000; border: 1px solid #333; padding: 15px; margin: 15px 0; border-radius: 8px; }
-        .code-box { background: #222; color: #00ff00; padding: 10px; font-family: monospace; direction: ltr; text-align: left; border-radius: 5px; margin: 10px 0; border-left: 3px solid var(--gold); }
-        .protocol-img { width: 100%; max-width: 500px; border: 1px solid var(--gold); margin: 10px 0; display: block; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #000; color: white; border: 1px solid #444; }
-        .btn { background: var(--primary); color: white; border: none; padding: 15px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.1rem; }
+        .protocol-img { width: 100%; max-width: 600px; border: 1px solid var(--gold); margin: 15px auto; display: block; }
+        .access-box { background: #222; padding: 20px; border: 1px solid var(--gold); border-radius: 8px; margin-top: 20px; }
+        input { width: 80%; padding: 10px; margin: 10px 0; background: #000; color: white; border: 1px solid #444; }
+        .btn { background: var(--primary); color: white; border: none; padding: 15px 30px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <nav>
-    <button onclick="showTab('apply')">تقديم الطلب</button>
-    <button onclick="showTab('rules')">القوانين والبروتوكولات</button>
-    <button onclick="showTab('commands')">أوامر الميدان (F8)</button>
+    <button onclick="showTab('apply')">تقديم طلب</button>
+    <button onclick="checkAccess()">بوابة المقبولين والتعميمات</button>
 </nav>
 
 <div id="apply" class="section active">
-    <h2 style="color:var(--primary)">📩 طلب التحاق عسكري</h2>
-    <input type="text" id="name" placeholder="الاسم العسكري الثلاثي">
-    <input type="text" id="discord" placeholder="معرف الديسكورد (ID)">
-    <select id="branch">
-        <option>القوات البرية</option>
-        <option>القوات الجوية</option>
-        <option>الشرطة العسكرية</option>
-    </select>
+    <h2 style="color:var(--primary)">📩 تقديم التحاق جديد</h2>
+    <input type="text" id="name" placeholder="الاسم العسكري">
+    <input type="text" id="discord" placeholder="ID الديسكورد">
     <button class="btn" onclick="sendData()">إرسال الطلب</button>
 </div>
 
-<div id="rules" class="section">
-    <h2 style="color:var(--gold)">🎖️ بروتوكول مناداة الرتب</h2>
-    <img src="image_d819d0.png" class="protocol-img" alt="بروتوكول الرتب">
-    <hr style="border: 0.5px solid #333;">
-    <h3>⚠️ تعميم هام</h3>
-    <p>السلام عليكم ورحمة الله وبركاته - تحية طيبة أما بعد</p>
-    <p>يجب الالتزام بما يصدر بهذا التعميم ومباشرته فور صدوره.</p>
+<div id="login_gate" class="section">
+    <div class="access-box">
+        <h3>🔒 منطقة عسكرية محظورة</h3>
+        <p>الرجاء إدخال رمز الدخول العسكري لعرض التعميمات</p>
+        <input type="password" id="mil_pass" placeholder="أدخل الرمز هنا">
+        <button class="btn" onclick="verifyPass()">دخول</button>
+    </div>
 </div>
 
-<div id="commands" class="section">
-    <h2 style="color:var(--gold)">🎮 أوامر الميدان والاختصارات</h2>
-    <p>لضبط الأوامر داخل المدينة، انسخ الكود ثم الصقه في قائمة F8 مع تغيير الرقم (0) للزر الذي تفضله:</p>
-
-    <div class="command-card">
-        <h3>1- أمر السلود (التحية)</h3>
-        <img src="salute.png" class="protocol-img" alt="صورة التحية">
-        <div class="code-box">bind keyboard 0 "e airforce04"</div>
-    </div>
-
-    <div class="command-card">
-        <h3>2- أمر استعد</h3>
-        <img src="stand.png" class="protocol-img" alt="صورة استعد">
-        <div class="code-box">bind keyboard 0 "e airforce02"</div>
-    </div>
-
-    <div class="command-card">
-        <h3>3- أمر استرح</h3>
-        <img src="relax.png" class="protocol-img" alt="صورة استرح">
-        <div class="code-box">bind keyboard 0 "e airforce03"</div>
+<div id="military_system" class="section">
+    <h2 style="color:var(--gold)">📜 التعميمات والبروتوكولات الرسمية</h2>
+    <img src="12121212.png" class="protocol-img">
+    <div style="background:#000; padding:15px; border:1px solid #333;">
+        <p>📌 تعميم رقم (1): الالتزام بالتحية العسكرية (bind keyboard 0 "e airforce04").</p>
+        <p>📌 تعميم رقم (2): يمنع التواجد في المنطقة المحظورة بدون إذن رسمي.</p>
     </div>
 </div>
 
 <script>
-    // إعدادات Firebase الخاصة بك
+    // بيانات Firebase الخاصة بمشروعك
     const firebaseConfig = {
         apiKey: "AIzaSyBWB-zYDHuYlQ2afaxKuOXlWKI7xAgjmTw",
         authDomain: "marvel-military.firebaseapp.com",
         projectId: "marvel-military",
         storageBucket: "marvel-military.firebasestorage.app",
-        messagingSenderId: "477826729291",
-        appId: "1:477826729291:web:95909db6cb7ba511fd94ce",
-        measurementId: "G-3BKT9RXH6E"
+        appId: "1:477826729291:web:95909db6cb7ba511fd94ce"
     };
 
     firebase.initializeApp(firebaseConfig);
@@ -91,14 +68,27 @@
         document.getElementById(tabId).classList.add('active');
     }
 
+    function checkAccess() {
+        showTab('login_gate');
+    }
+
+    function verifyPass() {
+        const pass = document.getElementById('mil_pass').value;
+        // يمكنك تغيير "1234" إلى أي رمز سري تريده
+        if(pass === "MARVEL2026") { 
+            showTab('military_system');
+        } else {
+            alert("عذراً، الرمز خاطئ. التسلل للمنطقة العسكرية يعرضك للمساءلة!");
+        }
+    }
+
     function sendData() {
-        const name = document.getElementById('name').value;
-        const discord = document.getElementById('discord').value;
-        const branch = document.getElementById('branch').value;
-        if(name && discord) {
+        const n = document.getElementById('name').value;
+        const d = document.getElementById('discord').value;
+        if(n && d) {
             db.collection("applications").add({
-                military_name: name, discord_id: discord, division: branch, timestamp: new Date().toLocaleString()
-            }).then(() => alert("تم الإرسال بنجاح!"));
+                military_name: n, discord_id: d, timestamp: new Date().toLocaleString()
+            }).then(() => alert("تم الإرسال! انتظر الرد عبر الديسكورد."));
         }
     }
 </script>
