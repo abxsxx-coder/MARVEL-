@@ -19,21 +19,10 @@
             color: #fff;
             font-family: 'Cairo', sans-serif;
             margin: 0;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* الآية الكريمة بتصميم مميز */
-        .quran-verse {
-            font-family: 'Amiri', serif;
-            font-size: 2.2rem;
-            color: var(--gold);
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(to bottom, #000, #1a1a1a);
-            border-bottom: 2px solid var(--gold);
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
-
+        /* شاشة الدخول */
         #login-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, #1a0000 0%, #000 100%);
@@ -44,44 +33,53 @@
             text-align: center; box-shadow: 0 0 30px rgba(179, 0, 0, 0.4); width: 400px;
         }
 
-        header {
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://i.imgur.com/military-hq.jpg');
-            background-size: cover; padding: 50px 20px; text-align: center;
-            border-bottom: 4px solid var(--gold);
+        /* الآية الكريمة */
+        .quran-header {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            color: var(--gold);
+            text-align: center;
+            padding: 30px;
+            background: #000;
+            border-bottom: 2px solid var(--gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
-        .hero-text { font-size: 1.3rem; color: #ccc; font-weight: bold; margin-top: 10px; }
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://i.imgur.com/8YQGqK6.jpg');
+            background-size: cover; padding: 40px; text-align: center;
+            border-bottom: 5px solid var(--primary);
+        }
 
         nav {
-            background: #000; position: sticky; top: 0; z-index: 999;
-            display: flex; justify-content: center; gap: 10px; padding: 15px;
-            border-bottom: 1px solid #333; overflow-x: auto;
+            background: #111; sticky; top: 0; z-index: 999;
+            display: flex; justify-content: center; gap: 5px; padding: 10px;
+            border-bottom: 1px solid var(--gold); flex-wrap: wrap;
         }
         nav button {
-            background: transparent; border: 1px solid #444; color: #fff;
-            padding: 10px 18px; cursor: pointer; border-radius: 4px; font-weight: bold; transition: 0.3s;
+            background: #222; border: 1px solid #444; color: #fff;
+            padding: 10px 15px; cursor: pointer; font-weight: bold; font-family: 'Cairo';
         }
         nav button.active { background: var(--primary); border-color: var(--gold); }
-        nav button:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
 
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+        .tab-content { display: none; animation: fadeIn 0.4s; }
 
         .card {
-            background: var(--card-bg); border-radius: 8px; padding: 25px; margin-bottom: 25px;
-            border-right: 5px solid var(--gold); box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            background: var(--card-bg); padding: 25px; border-radius: 5px;
+            border-right: 5px solid var(--gold); margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
-        h2 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; font-weight: 900; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        h2 { color: var(--gold); margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 12px; border: 1px solid #222; text-align: center; }
-        th { background: #200000; color: var(--gold); font-size: 1.1rem; }
+        th { background: #200000; color: var(--gold); }
 
-        .badge-red { background: #ff0000; padding: 3px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
-        .btn-discord { background: var(--discord); color: white; border: none; padding: 15px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1.1rem; }
-
-        .penalty-ui input, .penalty-ui select { background: #111; border: 1px solid #444; color: #fff; border-radius: 5px; }
-        .output-box { background: #050505; color: #00ff00; padding: 20px; border-radius: 5px; font-family: monospace; white-space: pre-wrap; margin-top: 15px; border: 1px solid #222; position: relative; }
+        .f8-box { background: #000; color: #00ff00; padding: 10px; border: 1px dashed #444; font-family: monospace; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+        
+        .grid-fleet { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -90,27 +88,27 @@
 
 <div id="login-overlay">
     <div class="login-box">
-        <h1 style="color: var(--gold); margin-bottom: 10px;">MARVEL RP</h1>
-        <p style="margin-bottom: 25px;">بوابة وزارة الدفاع - الدخول للمنسوبين فقط</p>
-        <button class="btn-discord" onclick="completeLogin()">تسجيل الدخول عبر Discord</button>
+        <h1 style="color: var(--gold); margin:0;">MARVEL RP</h1>
+        <p>مرحباً بك في البوابة الرقمية لوزارة الدفاع</p>
+        <button class="btn-discord" onclick="completeLogin()" style="background:var(--discord); color:white; border:none; padding:15px 30px; border-radius:5px; cursor:pointer; font-weight:bold; width:100%;">تسجيل الدخول عبر Discord</button>
     </div>
 </div>
 
-<div class="quran-verse">
-    ﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾
+<div class="quran-header">
+    ﴿ وَأَعِدُّوا لَهُم مَّا استَطَعْتُم مِّن قُوَّةٍ ﴾
 </div>
 
 <header>
-    <h1 style="font-size: 3.5rem; margin: 0; font-weight: 900; letter-spacing: -1px;">وزارة الدفاع لدولة مارفل</h1>
-    <p class="hero-text">"نحن درع الوطن في الأرض، وصقوره الجارحة في السماء.. ولاء، فداء، وعزيمة لا تلين"</p>
+    <h1 style="font-size: 3rem; margin:0;">وزارة الدفاع لدولة مارفل</h1>
+    <p style="color:var(--gold); font-weight:bold;">نحن درع الوطن البري وصقوره الجارحة في السماء</p>
 </header>
 
-<nav>
-    <button onclick="openTab('laws')" class="active">قوانين الوزارة</button>
-    <button onclick="openTab('fleet')">أسطول المركبات</button>
+<nav id="mainNav">
+    <button onclick="openTab('laws')" class="active">القوانين العامة</button>
+    <button onclick="openTab('cars')">أسطول الآليات</button>
     <button onclick="openTab('airforce')">القوات الجوية</button>
     <button onclick="openTab('ops')">مركز العمليات</button>
-    <button onclick="openTab('equipment')">التجهيزات</button>
+    <button onclick="openTab('uniforms')">التجهيزات والأكواد</button>
     <button onclick="openTab('hr')">نظام المحاسبة</button>
 </nav>
 
@@ -118,97 +116,149 @@
 
     <div id="laws" class="tab-content" style="display: block;">
         <div class="card">
-            <h2>📜 قوانين القوات المسلحة الأساسية</h2>
-            <div style="column-count: 2; column-gap: 40px; font-size: 1rem; text-align: justify;">
-                1- احترام المواطن وجميع العسكر وتمثيل الشخصية العسكرية.<br>
+            <h2>📜 قوانين القوات المسلحة (23 بند إلزامي)</h2>
+            <div style="column-count: 2; column-gap: 30px;">
+                1- احترام المواطن والعساكر وتمثيل الشخصية العسكرية.<br>
                 2- احترام الجميع بالميدان ومنع الاستهتار بالزي.<br>
-                3- التواجد الإلزامي في راديو العمليات ديسكورد والمدينة.<br>
+                3- التواجد الإلزامي في ديسكورد المدينة وراديو العمليات.<br>
                 4- يمنع "الدفن" أو التأفيك في مركز العمليات.<br>
                 5- لا مطاردة خارج لوس إلا بإذن العمليات.<br>
-                6- استلام العمليات لرتبة وكيل رقيب أو أعلى.<br>
-                7- يمنع استخدام التيزر في المطاردات بالمركبة.<br>
+                6- استلام العمليات من رتبة (وكيل رقيب) فأعلى.<br>
+                7- يمنع استخدام التيزر في مطاردات المركبات.<br>
                 8- خدمة 14 يوماً قبل الاستقالة (وإلا فصل وزاري).<br>
                 9- تسليم العهدة عند الاستقالة (وإلا السجن 15 شهر).<br>
-                10- طلب الهوية أول إجراء مع المواطن.<br>
-                11- لا يحق للعسكري تفتيش المخالف إلا إذا كان مشتبهاً به.<br>
-                12- الالتزام بقوانين المرور إلا في حالات المطاردة.<br>
-                13- إغلاق السيارة فور النزول منها (عهدة عسكرية).<br>
-                14- التأكد من التوزيع الميداني فور دخول المدينة.<br>
-                15- يمنع التلاعب بالاكواد العسكرية.<br>
-                16- القوات المسلحة مسؤولة عن ساندي وبوليتو.<br>
-                17- القطاعات الأخرى تأخذ الإذن قبل أي إجراء في ساندي.<br>
-                18- يحق للقطاع إنشاء نقاط تفتيش بأي موقع خارج لوس.<br>
-                19- الدوريات الحرة في ساندي وبوليتو حق أصيل.<br>
-                20- شروط خطف العسكري (3 أشخاص، تهديد، عسكري وحيد).<br>
-                21- يمنع الإنعاش في مناطق غير آمنة.
+                10- طلب الهوية أول إجراء مع أي مواطن.<br>
+                11- لا تفتيش إلا للمشتبه بهم أو الهاربين.<br>
+                12- الالتزام بقوانين المرور في الحالات العادية.<br>
+                13- إغلاق السيارة فور النزول (عهدة عسكرية).<br>
+                14- التوجه للعمليات فور الدخول للتوزيع الميداني.<br>
+                15- يمنع التلاعب بالأكواد العسكرية.<br>
+                16- مصادرة جميع الممنوعات حق أصيل للقطاع.<br>
+                17- القوات المسلحة هي المسؤول الأول عن ساندي وبوليتو.<br>
+                18- القطاعات الأخرى تأخذ الإذن قبل العمل في ساندي.<br>
+                19- نقاط التفتيش مناطق آمنة للعساكر.<br>
+                20- الدوريات الحرة مسموحة في المناطق التابعة للقطاع.<br>
+                21- شروط الخطف: (عسكري وحيد، 3 خاطفين، تهديد).<br>
+                22- يمنع الإنعاش في مناطق غير آمنة.<br>
+                23- احترام بروتوكولات المناداة (معالي، سعادة، حضرة).
             </div>
+        </div>
+
+        <div class="card">
+            <h2>🗣️ بروتوكولات مناداة الرتب</h2>
+            <ul>
+                <li><b>من فريق إلى فريق أول:</b> تناديه (معالي رتبته). مثال: معالي الفريق أول.</li>
+                <li><b>من مقدم إلى لواء:</b> تناديه (سعادة رتبته). مثال: سعادة اللواء.</li>
+                <li><b>من ملازم إلى رائد:</b> تناديه (حضرة رتبته). مثال: حضرة الرائد.</li>
+            </ul>
         </div>
     </div>
 
-    <div id="fleet" class="tab-content">
-        <div class="card">
-            <h2>🚗 كشف توزيع الآليات العسكرية</h2>
-            <table>
-                <tr><th>الرتبة العسكرية</th><th>المركبات المسموحة</th></tr>
-                <tr><td>جندي - جندي أول</td><td>فورد فكتوريا - كابرس</td></tr>
-                <tr><td>عريف - وكيل رقيب</td><td>كامري 2025 - تاهو</td></tr>
-                <tr><td>رقيب - رئيس رقباء</td><td>باترول - كدلك</td></tr>
-                <tr><td>ملازم - ملازم أول</td><td>تورس - تشارجر</td></tr>
-                <tr><td>نقيب - رائد</td><td>لكزس - سكويا</td></tr>
-                <tr><td>مقدم - عقيد ركن</td><td>جيتور</td></tr>
-                <tr><td>عميد - لواء ركن</td><td>تشالنجر - يوكن</td></tr>
-                <tr><td>فريق - فريق أول ركن</td><td>جي كلاس</td></tr>
-            </table>
-        </div>
+    <div id="cars" class="tab-content">
         <div class="card" style="border-right-color: #ff0000;">
-            <h2>⚠️ مركبات الصلاحيات والوزير (بإذن القيادة)</h2>
-            <p>يمنع استخراج هذه المركبات نهائياً إلا بموافقة: القائد، نائب القائد، أو الوزير.</p>
-            <div style="display: flex; justify-content: space-around; background: #000; padding: 15px; border-radius: 10px;">
-                <div style="color: var(--gold);"><b>مكتب الوزير:</b> روز رايز - BMW - سكاليد</div>
-                <div style="color: #ff4444;"><b>الجوية:</b> F-22 - F-15 - طيارة استطلاع</div>
-                <div style="color: #55ff55;"><b>الثقيلة:</b> مدرعات 1/2/3 - قارب</div>
+            <h2>⚠️ سيارات بإذن (القيادة والوزير فقط)</h2>
+            <p>يمنع استخراجها إلا بإذن من: (القائد، النائب، الوزير، نائب الوزير، المستشار)</p>
+            <ul>
+                <li><b>حرس الوزير:</b> يوكن حرس - تاهو حرس - دباب سكاليد الحرس.</li>
+                <li><b>الثقيلة والجوية:</b> هليكوبتر - طيارة استطلاع - ناقلة مدرعة - مدرعات 1، 2، 3.</li>
+                <li><b>المقاتلات:</b> F-22 + F-15 + قارب.</li>
+            </ul>
+        </div>
+
+        <div class="grid-fleet">
+            <div class="card">
+                <h3>أفراد وضباط (الآليات المسموحة)</h3>
+                <table>
+                    <tr><th>الرتبة</th><th>السيارات</th></tr>
+                    <tr><td>جندي إلى جندي أول</td><td>فورد فكتوريا - كابرس</td></tr>
+                    <tr><td>عريف إلى وكيل رقيب</td><td>كامري 2025 - تاهو</td></tr>
+                    <tr><td>رقيب إلى رئيس رقباء</td><td>باترول - كدلك</td></tr>
+                    <tr><td>ملازم إلى ملازم أول</td><td>تورس - تشارجر</td></tr>
+                    <tr><td>نقيب إلى رائد</td><td>لكزس - سكويا</td></tr>
+                    <tr><td>مقدم إلى عقيد ركن</td><td>جيتور</td></tr>
+                    <tr><td>عميد إلى لواء ركن</td><td>تشالنجر - يوكن</td></tr>
+                    <tr><td>فريق إلى فريق أول ركن</td><td>جي كلاس</td></tr>
+                </table>
             </div>
-            <p style="text-align: center; margin-top: 15px;"><b>سيارة السناريوهات:</b> <span class="badge-red">ارمادا</span></p>
+            <div class="card" style="border-right-color: cyan;">
+                <h3>السيارات الخاصة</h3>
+                <p><b>سيارة السناريوهات:</b> <span style="color:cyan">ارمادا</span></p>
+                <p><b>سيارة الوزير والنائب والمستشار:</b> <span style="color:cyan">روز رايز - BMW</span></p>
+            </div>
         </div>
     </div>
 
     <div id="airforce" class="tab-content">
         <div class="card">
-            <h2>صقور الجو [RSAF]</h2>
-            <p>برنامج التأهيل والعمليات الجوية العسكرية:</p>
+            <h2>✈️ دورة الطيران العسكري والقوات الجوية</h2>
+            <p>يهدف البرنامج لتأهيل الطيارين وفق أنظمة عسكرية صارمة. شروط النجاح 80%.</p>
+            <h3>مهام الطيار:</h3>
             <ul>
-                <li>دقة التنسيق الميداني مع القوات البرية (إبلاغ عن اتجاه الحركة).</li>
-                <li>إدارة العمليات الجوية المشتركة (إسناد، نقل، مراقبة).</li>
-                <li>الالتزام الصارم ببروتوكول الهبوط المظلي (فاصل 3 ثواني بين القافزين).</li>
-                <li>يمنع التحليق أو تغيير المسار دون إذن مباشر من العمليات.</li>
+                <li>عدم الإقلاع إلا بتوجيه رسمي من مركز العمليات.</li>
+                <li>التنسيق الميداني (ذكر مكان المركبة المتجهة للسيناريو).</li>
+                <li>الالتزام بالفاصل الزمني للقفز المظلي (2-3 ثواني بين كل مظلي).</li>
             </ul>
+            <h3>بروتوكول القفز المظلي:</h3>
+            <p>1. الإيجاز | 2. تجهيز العتاد | 3. محاكاة أرضية | 4. القفز (3.. 2.. 1.. قفز) | 5. بلاغ فتح المظلة والاتجاه.</p>
+        </div>
+    </div>
+
+    <div id="ops" class="tab-content">
+        <div class="card">
+            <h2>📡 إدارة مركز العمليات</h2>
+            <ul>
+                <li>الاستلام لرتبة (وكيل رقيب) فأعلى ويمنع الجدال معهم.</li>
+                <li>إعادة التحضير كل 15 دقيقة إلزامي.</li>
+                <li>الوحدة التي لا تستجيب لـ 3 نداءات يُحذف كودها من التقرير.</li>
+                <li>يمنع التواصل بين الوحدات إلا بإذن العمليات.</li>
+                <li>إرسال 4 مسودات تقارير خلال الفترة الواحدة.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="uniforms" class="tab-content">
+        <div class="card">
+            <h2>👕 أكواد الملابس العسكرية</h2>
+            <table>
+                <tr><td>ميدان أفراد</td><td>59316417</td></tr>
+                <tr><td>مداهمات أفراد</td><td>54516535</td></tr>
+                <tr><td>ضباط (ميدان/مداهمات)</td><td>35889554</td></tr>
+                <tr><td>القيادة العليا</td><td>15981693</td></tr>
+                <tr><td>القوات البرية RSLF</td><td>21389850</td></tr>
+                <tr><td>القوات الجوية RSAF</td><td>78824265</td></tr>
+            </table>
+            <p>📌 تردد الراديو الرسمي: <b>3</b></p>
+        </div>
+
+        <div class="card">
+            <h2>⌨️ اختصارات F8 (اضغط للنسخ)</h2>
+            <p>افتح قائمة F8 داخل اللعبة، ثم الصق الكود وغير الرقم (0) للزر الذي يناسبك:</p>
+            <div class="f8-box">bind keyboard 0 "e airforce04" <span>(التحية/سلود)</span></div>
+            <div class="f8-box">bind keyboard 0 "e airforce02" <span>(استعد)</span></div>
+            <div class="f8-box">bind keyboard 0 "e airforce03" <span>(استرح)</span></div>
         </div>
     </div>
 
     <div id="hr" class="tab-content">
         <div class="card">
-            <h2>🔨 النظام الآلي للمحاسبة العسكرية</h2>
-            <div class="penalty-ui">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div>
-                        <label>منشن الشخص:</label>
-                        <input type="text" id="target-name" placeholder="@اسم العسكري" style="width:100%; padding:12px; margin:10px 0;">
-                    </div>
-                    <div>
-                        <label>نوع المخالفة:</label>
-                        <select id="p-type" style="width:100%; padding:12px; margin:10px 0;">
-                            <option value="إنذار وظيفي شفوي">إنذار شفوي (2 يوم)</option>
-                            <option value="إنذار وظيفي أول">إنذار أول (5 أيام)</option>
-                            <option value="إنذار وظيفي ثاني">إنذار ثاني (7 أيام)</option>
-                        </select>
-                    </div>
-                </div>
-                <label>سبب المحاسبة:</label>
-                <input type="text" id="p-reason" placeholder="أدخل السبب بدقة" style="width:100%; padding:12px; margin:10px 0;">
+            <h2>🔨 مولد قرارات المحاسبة العسكرية</h2>
+            <div style="background:#000; padding:20px; border-radius:10px;">
+                <label>اسم العسكري (منشن):</label>
+                <input type="text" id="target-name" placeholder="@اسم الشخص" style="width:100%; padding:10px; margin:10px 0; background:#111; color:white; border:1px solid #444;">
                 
-                <button onclick="generatePenalty()" style="background:var(--gold); color:#000; border:none; padding:15px; font-weight:bold; cursor:pointer; width:100%; border-radius: 5px; font-size: 1rem;">إصدار قرار المحاسبة</button>
+                <label>نوع التحذير:</label>
+                <select id="p-type" style="width:100%; padding:10px; margin:10px 0; background:#111; color:white;">
+                    <option value="إنذار وظيفي شفوي">إنذار شفوي (2 يوم)</option>
+                    <option value="إنذار وظيفي أول">إنذار أول (5 أيام)</option>
+                    <option value="إنذار وظيفي ثاني">إنذار ثاني (7 أيام)</option>
+                </select>
+
+                <label>السبب:</label>
+                <input type="text" id="p-reason" placeholder="أدخل السبب هنا" style="width:100%; padding:10px; margin:10px 0; background:#111; color:white; border:1px solid #444;">
+                
+                <button onclick="generatePenalty()" style="background:var(--gold); color:black; width:100%; padding:15px; border:none; font-weight:bold; cursor:pointer;">توليد نص المحاسبة</button>
             </div>
-            <div class="output-box" id="p-output">بانتظار المدخلات...</div>
+            <div class="f8-box" id="p-output" style="height:auto; min-height:100px; margin-top:20px; white-space:pre-wrap; color:#00ff00;">سيظهر النص هنا...</div>
         </div>
     </div>
 
