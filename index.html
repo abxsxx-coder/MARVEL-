@@ -3,267 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وزارة الدفاع - دولة مارفل MARVEL RP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <title>وزارة الدفاع - MARVEL RP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #c5a059;
-            --red: #8b0000;
-            --dark: #080808;
-            --glass: rgba(15, 15, 15, 0.98);
+            --primary: #c5a059; /* ذهبي ملكي */
+            --danger: #ff0000;
+            --bg-dark: #050505;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --accent: #1a1a1a;
         }
 
         body {
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://i.imgur.com/vHInXF6.jpg');
-            background-size: cover; background-attachment: fixed;
-            color: #e0e0e0; font-family: 'Cairo', sans-serif; margin: 0;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+            color: #ffffff;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* نظام تسجيل الدخول الموحد */
-        #login-overlay {
+        /* شاشة الدخول الاحترافية */
+        #access-panel {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--dark); z-index: 10000; display: flex; align-items: center; justify-content: center;
+            background: var(--bg-dark); z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .login-card {
-            background: var(--glass); padding: 40px; border: 2px solid var(--gold);
-            text-align: center; border-radius: 15px; box-shadow: 0 0 40px rgba(197, 160, 89, 0.3);
+        .access-card {
+            border: 2px solid var(--primary);
+            padding: 50px; text-align: center;
+            background: var(--card-bg);
+            box-shadow: 0 0 50px rgba(197, 160, 89, 0.2);
+            border-radius: 20px;
+            animation: pulse 2s infinite;
         }
 
-        /* الهيدر القيادي */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(197, 160, 89, 0.2); }
+            50% { box-shadow: 0 0 50px rgba(197, 160, 89, 0.4); }
+            100% { box-shadow: 0 0 20px rgba(197, 160, 89, 0.2); }
+        }
+
+        /* الهيدر الأسطوري */
         header {
-            text-align: center; padding: 100px 20px; border-bottom: 5px solid var(--gold);
-            background: rgba(0,0,0,0.8); position: relative;
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
         }
 
-        .quran-verse { font-size: 2.2rem; color: var(--gold); font-weight: 900; margin-bottom: 20px; }
-        .main-title { font-family: 'Cairo'; font-size: 4rem; margin: 0; text-transform: uppercase; }
-
-        .container { max-width: 1300px; margin: auto; padding: 40px 20px; }
-
-        .section-header {
-            background: linear-gradient(90deg, var(--gold), transparent); color: black;
-            padding: 12px 40px; margin: 60px 0 30px; font-weight: 900; font-size: 1.6rem;
-            border-right: 10px solid var(--red);
+        .holy-verse {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 900;
+            text-shadow: 0 0 15px rgba(197, 160, 89, 0.5);
+            margin-bottom: 20px;
         }
 
-        /* الهيكل الإداري */
-        .hierarchy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
-        .leader-card {
-            background: var(--glass); border: 1px solid var(--gold); padding: 20px;
-            border-radius: 8px; text-align: center; position: relative;
+        .main-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5rem;
+            margin: 0;
+            letter-spacing: 10px;
+            color: #fff;
+            text-transform: uppercase;
         }
 
-        /* القوانين والمركبات */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
-        .info-card {
-            background: #121212; border: 1px solid #333; padding: 20px; border-radius: 8px;
-            transition: 0.3s; line-height: 1.8;
+        /* حاويات البيانات */
+        .content-container { max-width: 1400px; margin: auto; padding: 50px 20px; }
+
+        .glitch-title {
+            font-size: 2rem;
+            border-right: 5px solid var(--primary);
+            padding-right: 15px;
+            margin: 60px 0 30px;
+            background: linear-gradient(90deg, #1a1a1a, transparent);
+            color: var(--primary);
         }
-        .info-card:hover { border-color: var(--gold); box-shadow: 0 0 15px rgba(197, 160, 89, 0.1); }
-        .card-label { color: var(--gold); font-weight: bold; border-bottom: 1px solid #444; display: block; margin-bottom: 10px; }
 
-        /* الأكواد العسكرية */
-        .code-tag { background: #222; color: #00ff00; padding: 3px 8px; font-family: 'Orbitron'; border-radius: 4px; border: 1px solid #444; }
+        /* نظام البطاقات المتقدم */
+        .military-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
 
-        /* بوابة القادة المخفية */
-        #admin-portal { display: none; background: #0c0c0c; border: 2px solid var(--red); padding: 40px; margin-top: 50px; }
+        .military-card {
+            background: var(--accent);
+            border: 1px solid #333;
+            padding: 25px;
+            position: relative;
+            transition: 0.4s;
+            overflow: hidden;
+        }
 
-        footer { text-align: center; padding: 60px; background: black; border-top: 2px solid var(--gold); }
-        .copyright { color: var(--gold); font-weight: 900; font-size: 1.2rem; margin-top: 10px; }
+        .military-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.02);
+            background: #222;
+        }
 
-        .btn-gold {
-            background: var(--gold); color: black; padding: 12px 35px; border: none;
-            font-weight: 900; cursor: pointer; border-radius: 5px; text-transform: uppercase;
+        .military-card::before {
+            content: "TOP SECRET";
+            position: absolute; top: 10px; left: -30px;
+            background: var(--danger); color: white;
+            font-size: 0.7rem; padding: 2px 40px;
+            transform: rotate(-45deg);
+        }
+
+        .rank-label { color: var(--primary); font-weight: 900; display: block; margin-bottom: 10px; font-size: 1.1rem; }
+
+        /* القوانين والبنود */
+        .laws-box {
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px dashed var(--primary);
+            padding: 30px;
+            columns: 2;
+            column-gap: 50px;
+            line-height: 2;
+        }
+
+        .law-entry { margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 5px; }
+
+        /* بوابة القادة المحمية */
+        #commander-vault {
+            display: none;
+            background: #000;
+            border: 2px solid var(--danger);
+            padding: 40px;
+            margin-top: 50px;
+            box-shadow: 0 0 100px rgba(255, 0, 0, 0.1);
+        }
+
+        /* الأزرار */
+        .cmd-btn {
+            background: var(--primary);
+            color: black;
+            padding: 15px 40px;
+            border: none;
+            font-weight: 900;
+            cursor: pointer;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+        }
+
+        .cmd-btn:hover { background: #fff; transform: translateY(-3px); }
+
+        footer {
+            background: #000;
+            padding: 60px;
+            text-align: center;
+            border-top: 2px solid var(--primary);
         }
     </style>
 </head>
 <body>
 
-<div id="login-overlay">
-    <div class="login-card">
-        <h1 style="color: var(--gold); margin-bottom: 10px;">وزارة الدفاع</h1>
-        <h2 style="margin-top: 0;">MARVEL RP</h2>
-        <p>نظام الدخول الموحد لمنسوبي القوات المسلحة</p>
-        <button class="btn-gold" onclick="unlockSite()">تسجيل الدخول عبر DISCORD</button>
+<div id="access-panel">
+    <div class="access-card">
+        <h1 class="main-logo">MARVEL RP</h1>
+        <p style="letter-spacing: 5px;">وزارة الدفاع - القوات المسلحة</p>
+        <hr style="border: 0; border-top: 1px solid var(--primary); margin: 20px 0;">
+        <button class="cmd-btn" onclick="authorize()">تصريح الدخول</button>
     </div>
 </div>
 
-<div id="main-interface" style="display:none;">
+<div id="secure-site" style="display:none;">
     <header>
-        <div class="quran-verse">﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾</div>
-        <h1 class="main-title">وزارة الدفاع لدولة مارفل</h1>
-        <p style="font-size: 1.3rem; letter-spacing: 2px;">الدرع الحصين والعين اليقظة</p>
+        <div class="holy-verse">﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾</div>
+        <h1 class="main-logo">وزارة الدفاع</h1>
+        <p style="font-size: 1.5rem; color: #888;">منصة العمليات والبروتوكولات العسكرية</p>
+        
+        <div class="military-grid" style="margin-top: 50px;">
+            <div class="military-card"><b>ضابط أمن الوزارات:</b> @! MV A-6 PAPLO -43</div>
+            <div class="military-card"><b>قائد القوات المشتركة:</b> @# MV K-1 kevin 117</div>
+            <div class="military-card"><b>وزير الدفاع:</b> @# MV 👑 D-1 DARK 51</div>
+            <div class="military-card"><b>نائب وزير الدفاع:</b> @# MV 👑 D-2 Ziyad -123</div>
+            <div class="military-card" style="border: 2px solid var(--primary);"><b>قائد القوات المسلحة:</b> @! MV 🌟 L-1 A.B -454</div>
+            <div class="military-card"><b>نائب قائد المسلحة:</b> @# MV 🌟L-2 Abu Jizan 110</div>
+        </div>
     </header>
 
-    <div class="container">
-        <!-- القيادة العليا -->
-        <h2 class="section-header">القيادة العليا والمشرفين</h2>
-        <div class="hierarchy-grid">
-            <div class="leader-card">
-                <span class="card-label">ضابط أمن الوزارات</span>
-                معالي: @! MV A-6 PAPLO -43
-            </div>
-            <div class="leader-card">
-                <span class="card-label">قائد القوات المشتركة</span>
-                معالي: @# MV K-1 kevin 117
-            </div>
-            <div class="leader-card">
-                <span class="card-label">وزير الدفاع</span>
-                معالي: @# MV 👑 D-1 DARK 51
-            </div>
-            <div class="leader-card">
-                <span class="card-label">نائب وزير الدفاع</span>
-                معالي: @# MV 👑 D-2 Ziyad -123
-            </div>
-            <div class="leader-card" style="border-width: 3px;">
-                <span class="card-label">قائد القوات المسلحة</span>
-                سعادة: @! MV 🌟 L-1 A.B -454
-            </div>
-            <div class="leader-card">
-                <span class="card-label">نائب قائد القوات المسلحة</span>
-                سعادة: @# MV 🌟L-2 Abu Jizan 110
-            </div>
+    <div class="content-container">
+        
+        <h2 class="glitch-title">قوانين وزارة الدفاع (23 بنداً صارماً)</h2>
+        <div class="laws-box">
+            <div class="law-entry">1. احترام المواطن والتمثيل العسكري الفعلي.</div>
+            <div class="law-entry">2. منع الاستهتار بالزي العسكري.</div>
+            <div class="law-entry">3. الالتزام براديو العمليات والديسكورد.</div>
+            <div class="law-entry">4. يمنع "الدفن" أو التأفيك نهائياً.</div>
+            <div class="law-entry">5. لا مطاردة خارج لوس إلا بإذن.</div>
+            <div class="law-entry">6. العمليات للرتب (وكيل رقيب) فأعلى.</div>
+            <div class="law-entry">7. التيزر للمشاة فقط.</div>
+            <div class="law-entry">8. خدمة 14 يوماً قبل الاستقالة.</div>
+            <div class="law-entry">9. تسليم العهد عند الاستقالة.</div>
+            <div class="law-entry">10. طلب الهوية هو الإجراء الأول.</div>
+            <div class="law-entry">11. التفتيش للمشتبه بهم فقط.</div>
+            <div class="law-entry">12. الالتزام بقوانين المرور.</div>
+            <div class="law-entry">13. إغلاق السيارة فور النزول.</div>
+            <div class="law-entry">14. التوزيع الميداني فور الدخول.</div>
+            <div class="law-entry">15. منع التلاعب بالأكواد العسكرية.</div>
+            <div class="law-entry">16. مصادرة الممنوعات حق أصيل.</div>
+            <div class="law-entry">17. ساندي وبوليتو منطقة نفوذ الدفاع.</div>
+            <div class="law-entry">18. منع تدخل القطاعات الأخرى بساندي.</div>
+            <div class="law-entry">19. نقاط التفتيش خارج لوس مناطق آمنة.</div>
+            <div class="law-entry">20. حماية العساكر في نقاط التفتيش.</div>
+            <div class="law-entry">21. الدوريات الحرة لكافة المناطق.</div>
+            <div class="law-entry">22. بروتوكول الخطف (3 ضد 1).</div>
+            <div class="law-entry">23. الإنعاش في المناطق الآمنة فقط.</div>
         </div>
 
-        <!-- القوانين الـ23 -->
-        <h2 class="section-header">دستور القوات المسلحة (23 بنداً)</h2>
-        <div class="info-card">
-            <ol style="column-count: 2; column-gap: 40px;">
-                <li>احترام المواطن والتمثيل العسكري الكامل.</li>
-                <li>منع الاستهتار باللبس العسكري حتى مع الأصدقاء.</li>
-                <li>التواجد الإلزامي في راديو العمليات.</li>
-                <li>يمنع "الدفن" أو التأفيك نهائياً.</li>
-                <li>المطاردات خارج لوس تتطلب إذن العمليات.</li>
-                <li>لا يستلم العمليات إلا رتبة وكيل رقيب فأعلى.</li>
-                <li>استخدام التيزر للمشاة فقط.</li>
-                <li>خدمة 14 يوماً إلزامية قبل الاستقالة.</li>
-                <li>تسليم كافة العهد عند المغادرة.</li>
-                <li>طلب الهوية هو الإجراء النظامي الأول.</li>
-                <li>منع التفتيش إلا للمشتبه بهم أو الهاربين.</li>
-                <li>الالتزام التام بقوانين المرور.</li>
-                <li>إغلاق المركبة فور النزول (عهدة عسكرية).</li>
-                <li>التأكد من التوزيع الميداني فور الدخول.</li>
-                <li>منع التلاعب بالأكواد العسكرية.</li>
-                <li>مصادرة جميع الممنوعات حق أصيل للدفاع.</li>
-                <li>المسؤولية الكاملة عن ساندي وبوليتو.</li>
-                <li>منع تدخل القطاعات الأخرى في ساندي دون إذن.</li>
-                <li>نقاط التفتيش خارج لوس مناطق آمنة.</li>
-                <li>منع قتل العساكر في نقاط التفتيش.</li>
-                <li>إرسال دوريات حرة لكافة المناطق التابعة.</li>
-                <li>شروط الخطف: (3 أشخاص ضد عسكري واحد).</li>
-                <li>منع طلب إنعاش في مناطق غير آمنة.</li>
-            </ol>
+        <h2 class="glitch-title">أكاديمية المركبات والآليات</h2>
+        <div class="military-grid">
+            <div class="military-card"><span class="rank-label">جندي - جندي أول</span>فورد فكتوريا، كابرس</div>
+            <div class="military-card"><span class="rank-label">عريف - وكيل رقيب</span>كامري 2025، تاهو</div>
+            <div class="military-card"><span class="rank-label">رقيب - رئيس رقباء</span>باترول، كدلك</div>
+            <div class="military-card"><span class="rank-label">ملازم - ملازم أول</span>تورس، تشارجر</div>
+            <div class="military-card"><span class="rank-label">نقيب - رائد</span>لكزس، سكويا</div>
+            <div class="military-card"><span class="rank-label">مقدم - عقيد ركن</span>جيتور</div>
+            <div class="military-card"><span class="rank-label">عميد - لواء ركن</span>تشالنجر، يوكن</div>
+            <div class="military-card"><span class="rank-label">فريق - فريق أول</span>جي كلاس G-Class</div>
         </div>
 
-        <!-- السيارات حسب الرتب -->
-        <h2 class="section-header">أكاديمية المركبات والآليات</h2>
-        <div class="grid">
-            <div class="info-card"><span class="card-label">جندي - جندي أول</span>فورد فكتوريا، كابرس</div>
-            <div class="info-card"><span class="card-label">عريف - وكيل رقيب</span>كامري 2025، تاهو</div>
-            <div class="info-card"><span class="card-label">رقيب - رئيس رقباء</span>باترول، كدلك</div>
-            <div class="info-card"><span class="card-label">ملازم - ملازم أول</span>تورس، تشارجر</div>
-            <div class="info-card"><span class="card-label">نقيب - رائد</span>لكزس، سكويا</div>
-            <div class="info-card"><span class="card-label">مقدم ركن - عقيد ركن</span>جيتور</div>
-            <div class="info-card"><span class="card-label">عميد ركن - لواء ركن</span>تشالنجر، يوكن</div>
-            <div class="info-card"><span class="card-label">فريق - فريق أول</span>جي كلاس G-Class</div>
-        </div>
-
-        <!-- تصاريح خاصة -->
-        <h2 class="section-header" style="border-right-color: white;">قسم العمليات الخاصة والسناريوهات</h2>
-        <div class="grid">
-            <div class="info-card" style="border-color: var(--red);">
-                <span class="card-label">مركبة السناريوهات المعتمدة</span>
+        <h2 class="glitch-title">قسم السناريوهات والعمليات الخاصة</h2>
+        <div class="military-grid">
+            <div class="military-card" style="border-color: var(--danger);">
+                <span class="rank-label">مركبة السناريوهات</span>
                 آرمادا (Armada)
             </div>
-            <div class="info-card" style="border-color: var(--red);">
-                <span class="card-label">مركبات القيادة (الوزير ونوابه)</span>
+            <div class="military-card" style="border-color: var(--primary);">
+                <span class="rank-label">مركبات القيادة العليا</span>
                 روز رايز، BMW
             </div>
-            <div class="info-card" style="grid-column: span 2; border-color: var(--gold);">
-                <span class="card-label">يمنع استخراجها إلا بإذن (قائد القوات + الوزير ونوابهم)</span>
-                يوكن/تاهو حرس، هليكوبتر، دباب، سكاليد الحرس، طائرة استطلاع، مدرعات 1-2-3، F-22، F-15، قوارب.
+            <div class="military-card" style="grid-column: span 2;">
+                <span class="rank-label">يمنع استخراجها إلا بإذن القادة والوزراء</span>
+                يوكن حرس، تاهو حرس، هلي كوبتر، دباب، سكاليد الحرس، طيارة استطلاع، مدرعات (1,2,3)، F-22, F-15، قوارب.
             </div>
         </div>
 
-        <!-- أكاديمية الطيران -->
-        <h2 class="section-header">برنامج التأهيل والعمليات الجوية</h2>
-        <div class="info-card">
-            <p>• <b>بروتوكول القفز:</b> فاصل زمني (2-3 ثوانٍ) بين كل وحدة.</p>
-            <p>• <b>نداء الطيار:</b> "مركز العمليات - هنا طائرة (الكود) - نطلب إذن الإقلاع".</p>
-            <p>• <b>مهام الجوية:</b> الإسناد، النقل، المراقبة، وإدارة العمليات المشتركة.</p>
-        </div>
-
-        <!-- الأكواد العسكرية -->
-        <h2 class="section-header">مركز التجهيزات (العهد العسكرية)</h2>
-        <div class="grid">
-            <div class="info-card">ميدان أفراد: <span class="code-tag">59316417</span></div>
-            <div class="info-card">مداهمة أفراد: <span class="code-tag">54516535</span></div>
-            <div class="info-card">ضباط (ميدان/مداهمة): <span class="code-tag">35889554</span></div>
-            <div class="info-card">القيادة العليا: <span class="code-tag">15981693</span></div>
-            <div class="info-card">القوات البرية RSLF: <span class="code-tag">21389850</span></div>
-            <div class="info-card">القوات الجوية RSAF: <span class="code-tag">78824265</span></div>
-        </div>
-
-        <!-- اختصارات F8 -->
-        <h2 class="section-header">نظام الاختصارات العسكرية (F8)</h2>
-        <div class="info-card">
-            <p>• التحية (سلوود): <code>bind keyboard 0 "e airforce04"</code></p>
-            <p>• استعد: <code>bind keyboard 0 "e airforce02"</code></p>
-            <p>• استرح: <code>bind keyboard 0 "e airforce03"</code></p>
-            <p><i>* ملاحظة: قم بتغيير الرقم (0) للزر المناسب لك.</i></p>
-        </div>
-
-        <!-- بوابة القادة -->
-        <div style="text-align: center; margin-top: 80px;">
-            <button class="btn-gold" style="background: var(--red); color: white;" onclick="toggleAdmin()">بوابة القادة والمحاسبة</button>
-        </div>
-
-        <div id="admin-portal">
-            <h2 style="color: var(--red);">لوحة التحكم الإدارية - إدارة شؤون القوات</h2>
-            <div class="grid">
-                <div class="info-card">
-                    <span class="card-label">نظام الإنذارات الوظيفية</span>
-                    • شفوي: (2 أيام)<br>
-                    • إنذار أول: (5 أيام)<br>
-                    • إنذار ثاني: (7 أيام)
-                </div>
-                <div class="info-card">
-                    <span class="card-label">صيغة المحاسبة الرسمية</span>
-                    يتم محاسبة المذكور (المنشن) بـ (الإنذار) - السبب: (...) - تاريخ الانتهاء: (...)
-                </div>
+        <h2 class="glitch-title">بروتوكولات الأكاديمية (الجوية والميدانية)</h2>
+        <div class="military-grid">
+            <div class="military-card">
+                <span class="rank-label">القفز المظلي</span>
+                فاصل زمني 2-3 ثوانٍ <br>
+                نداء الطيار المعتمد <br>
+                الالتزام بمركز العمليات
             </div>
-            <div style="margin-top: 20px;">
-                <input type="password" id="admin-key" placeholder="كلمة مرور القادة" style="padding: 10px; width: 250px;">
-                <button class="btn-gold" onclick="verifyAdmin()">تحقق</button>
+            <div class="military-card">
+                <span class="rank-label">المناداة الرسمية</span>
+                فريق-فريق أول: معالي <br>
+                مقدم-لواء: سعادة <br>
+                ملازم-رائد: حضرة
+            </div>
+            <div class="military-card">
+                <span class="rank-label">الأكواد (العهدة)</span>
+                ميدان: 59316417 <br>
+                مداهمة: 54516535 <br>
+                جوية: 78824265
             </div>
         </div>
+
+        <div style="text-align: center; margin-top: 100px;">
+            <button class="cmd-btn" style="background: var(--danger); color: white;" onclick="openVault()">بوابة القادة والمحاسبة</button>
+        </div>
+
+        <div id="commander-vault">
+            <h2 style="color: var(--danger);">نظام المحاسبة والتحذيرات</h2>
+            <div class="military-grid">
+                <div class="military-card">شفوي: 2 أيام</div>
+                <div class="military-card">أول: 5 أيام</div>
+                <div class="military-card">ثاني: 7 أيام</div>
+            </div>
+            <p style="margin-top: 30px;"><b>صيغة المحاسبة:</b> يتم محاسبة المذكور بـ (...) والسبب (...)</p>
+        </div>
+
     </div>
 
     <footer>
-        <div class="quran-verse" style="font-size: 1.2rem;">﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾</div>
-        <p>جميع الحقوق محفوظة لوزارة الدفاع - دولة مارفل 2026</p>
-        <div class="copyright">تطوير وإشراف: ! MV 🌟 L-1 A.B -454</div>
+        <div class="holy-verse" style="font-size: 1.5rem;">﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾</div>
+        <p class="main-logo" style="font-size: 1.5rem; letter-spacing: 3px;">MARVEL RP</p>
+        <p style="color: var(--primary); font-weight: 900;">بإشراف القائد: ! MV 🌟 L-1 A.B -454</p>
     </footer>
 </div>
 
 <script>
-    function unlockSite() {
-        document.getElementById('login-overlay').style.display = 'none';
-        document.getElementById('main-interface').style.display = 'block';
+    function authorize() {
+        document.getElementById('access-panel').style.display = 'none';
+        document.getElementById('secure-site').style.display = 'block';
+        window.scrollTo(0,0);
     }
 
-    function toggleAdmin() {
-        let portal = document.getElementById('admin-portal');
-        portal.style.display = (portal.style.display === 'block') ? 'none' : 'block';
-    }
-
-    function verifyAdmin() {
-        const key = document.getElementById('admin-key').value;
-        if(key === "MARVEL2026") {
-            alert("مرحباً بك يا سيادة القائد. تم تفعيل الصلاحيات.");
+    function openVault() {
+        let pass = prompt("أدخل كلمة مرور القادة:");
+        if(pass === "MARVEL2026") {
+            document.getElementById('commander-vault').style.display = 'block';
+            window.scrollBy(0, 500);
         } else {
-            alert("كلمة مرور خاطئة. سيتم إبلاغ القيادة.");
+            alert("تم تسجيل محاولة دخول غير مصرح بها.");
         }
     }
 </script>
