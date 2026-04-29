@@ -2,221 +2,152 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وزارة الدفاع - دولة مارفل MARVEL RP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <title>وزارة الدفاع | MARVEL RP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #c5a059;
-            --red: #8b0000;
-            --dark: #050505;
-            --glass: rgba(20, 20, 20, 0.9);
+            --primary: #c5a059; /* ذهبي عسكري */
+            --bg-dark: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.95);
         }
 
         body {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://i.imgur.com/vHInXF6.jpg'); /* خلفية عسكرية */
-            background-size: cover; background-attachment: fixed;
-            color: white; font-family: 'Cairo', sans-serif; margin: 0; overflow-x: hidden;
+            background-color: var(--bg-dark);
+            color: #eeeeee;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            line-height: 1.6;
         }
 
-        /* شاشة تسجيل الدخول */
-        #login-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--dark); z-index: 10000; display: flex;
-            flex-direction: column; align-items: center; justify-content: center;
-        }
-
-        .login-box {
-            background: var(--glass); padding: 40px; border: 2px solid var(--gold);
-            text-align: center; border-radius: 10px; box-shadow: 0 0 20px var(--gold);
-        }
-
-        input {
-            padding: 10px; width: 80%; margin: 10px 0; border-radius: 5px; border: none;
-        }
-
-        .btn-discord {
-            background: #5865F2; color: white; padding: 12px 25px; border: none;
-            border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px;
-        }
-
-        /* الهيدر */
+        /* الهيدر القيادي */
         header {
-            text-align: center; padding: 60px 20px; border-bottom: 3px solid var(--gold);
-            background: rgba(0, 0, 0, 0.6);
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.imgur.com/vHInXF6.jpg');
+            background-size: cover;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 4px solid var(--primary);
+            text-shadow: 2px 2px 10px black;
         }
 
-        .quran-verse { font-size: 1.8rem; color: var(--gold); margin-bottom: 20px; font-weight: 900; }
+        .quran { color: var(--primary); font-size: 1.5rem; font-weight: 900; margin-bottom: 10px; }
+        h1 { font-size: 3rem; margin: 0; letter-spacing: 2px; }
 
-        /* الأقسام */
-        .section-title {
-            background: var(--gold); color: black; padding: 10px 30px;
-            display: inline-block; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            margin: 40px 0 20px; font-weight: bold;
+        .container { max-width: 1100px; margin: auto; padding: 40px 20px; }
+
+        /* القوانين - القسم الأهم */
+        .laws-container {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
-        .container { max-width: 1200px; margin: auto; padding: 20px; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-
-        .card {
-            background: var(--glass); border: 1px solid #333; padding: 20px;
-            border-radius: 8px; position: relative; overflow: hidden;
+        .section-header {
+            border-right: 5px solid var(--primary);
+            padding-right: 15px;
+            margin: 30px 0 20px;
+            color: var(--primary);
+            font-size: 1.8rem;
         }
 
-        .card::before {
-            content: ''; position: absolute; top: 0; right: 0; width: 5px; height: 100%; background: var(--gold);
+        .law-item {
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #222;
+            transition: 0.3s;
         }
 
-        /* قائمة السيارات */
-        .car-rank { color: var(--gold); font-weight: bold; display: block; margin-bottom: 10px; border-bottom: 1px solid #444; }
+        .law-item:hover { border-right: 5px solid var(--primary); background: rgba(197, 160, 89, 0.05); }
 
-        /* نظام الملابس */
-        .skin-code { background: #222; padding: 5px 10px; color: #0f0; font-family: monospace; border-radius: 4px; }
+        .law-number { color: var(--primary); font-weight: bold; margin-left: 10px; font-size: 1.2rem; }
 
-        footer { text-align: center; padding: 40px; background: black; border-top: 2px solid var(--gold); margin-top: 50px; }
+        /* السيارات والعهد */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .rank-card {
+            background: #151515;
+            padding: 15px;
+            border-top: 3px solid var(--primary);
+            font-size: 0.9rem;
+        }
 
-        .rights { color: var(--gold); font-size: 0.9rem; }
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #000;
+            border-top: 1px solid var(--primary);
+            margin-top: 50px;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
 
-<!-- نظام تسجيل الدخول -->
-<div id="login-overlay">
-    <div class="login-box">
-        <h2 style="color: var(--gold);">بوابة الدخول الموحدة</h2>
-        <p>وزارة الدفاع - MARVEL RP</p>
-        <button class="btn-discord" onclick="login()">تسجيل الدخول عبر Discord</button>
-        <div id="pass-field" style="display:none; margin-top:20px;">
-            <input type="password" id="admin-pass" placeholder="كلمة مرور المسؤولين">
-            <button onclick="adminLogin()" style="background: var(--gold); padding: 5px 15px;">دخول</button>
-        </div>
-    </div>
-</div>
+<header>
+    <div class="quran">﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾</div>
+    <h1>وزارة الدفاع</h1>
+    <p>دولة مارفل - MARVEL ROLEPLAY</p>
+</header>
 
-<div id="main-content" style="display:none;">
-    <header>
-        <div class="quran-verse">﴿ وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ ﴾</div>
-        <h1>وزارة الدفاع لدولة مارفل</h1>
-        <p style="font-size: 1.2rem;">درع الوطن وعين الصقر في السماء</p>
+<div class="container">
+    
+    <div class="laws-container">
+        <h2 class="section-header">دستور القوات المسلحة (البنود الرسمية)</h2>
         
-        <div style="margin-top: 30px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-            <div class="card" style="border-color: var(--gold);">
-                <span style="color: var(--gold);">وزير الدفاع</span><br>@# MV 👑 D-1 DARK 51
-            </div>
-            <div class="card" style="border-color: var(--gold);">
-                <span style="color: var(--gold);">قائد القوات المسلحة</span><br>@! MV 🌟 L-1 A.B -454
-            </div>
-        </div>
-    </header>
+        <div class="law-item"><span class="law-number">01</span> الاحترام المتبادل بين كافة الرتب وعدم التلفظ نهائياً.</div>
+        <div class="law-item"><span class="law-number">02</span> تمثيل الشخصية العسكرية (الرول بلاي) في كافة الأوقات والظروف.</div>
+        <div class="law-item"><span class="law-number">03</span> يمنع الاستهتار بالزي العسكري أو استخدامه لأغراض شخصية.</div>
+        <div class="law-item"><span class="law-number">04</span> التواجد في راديو العمليات (ديسكورد + مدينة) إلزامي طوال فترة الدوام.</div>
+        <div class="law-item"><span class="law-number">05</span> يمنع الخروج عن "لوس سانتوس" إلا بطلب إذن رسمي من العمليات.</div>
+        <div class="law-item"><span class="law-number">06</span> لا يحق لأي رتبة استلام "العمليات" إلا من رتبة (وكيل رقيب) فأعلى.</div>
+        <div class="law-item"><span class="law-number">07</span> استخدام "التيزر" يكون للمشاة فقط أو لإيقاف المشتبه به الهارب مشياً.</div>
+        <div class="law-item"><span class="law-number">08</span> لا يحق للعسكري تقديم استقالته إلا بعد إتمام 14 يوماً من الخدمة الفعالة.</div>
+        <div class="law-item"><span class="law-number">09</span> عند الاستقالة، يجب تسليم كافة العهد (ملابس، أسلحة) وعقوبة المخالف السجن 15 شهر.</div>
+        <div class="law-item"><span class="law-number">10</span> طلب الهوية هو الإجراء النظامي الأول عند توقيف أي مواطن.</div>
+        <div class="law-item"><span class="law-number">11</span> يمنع "التأفيك" أو الوقوف دون عمل (الدفن) في المقرات الرسمية.</div>
+        <div class="law-item"><span class="law-number">12</span> الالتزام بالهيكل التنظيمي (سلسلة المراجع) عند تقديم الشكاوى أو الاقتراحات.</div>
+        <div class="law-item"><span class="law-number">13</span> يمنع التدخل في عمل القطاعات الأخرى (شرطة، إسعاف) إلا بطلب إسناد رسمي.</div>
+        <div class="law-item"><span class="law-number">14</span> استخدام القوة المميتة (الرصاص الحي) لا يتم إلا في حالة تهديد الحياة.</div>
+        <div class="law-item"><span class="law-number">15</span> يمنع قيادة السيارات غير المخصصة لرتبتك دون إذن من القيادة.</div>
+        <div class="law-item"><span class="law-number">16</span> الالتزام ببروتوكول "مركز العمليات" في الإبلاغ عن المواقع والتحركات.</div>
+        <div class="law-item"><span class="law-number">17</span> يمنع حمل الأسلحة الثقيلة في الأماكن العامة إلا في حالات الاستنفار.</div>
+        <div class="law-item"><span class="law-number">18</span> الحفاظ على سرية المعلومات والخطط العسكرية للقطاع.</div>
+        <div class="law-item"><span class="law-number">19</span> يمنع التجمهر أو المزاح بالأسلحة داخل الثكنات العسكرية.</div>
+        <div class="law-item"><span class="law-number">20</span> الالتزام بزي "المداهمة" فقط عند تبليغ العمليات بوجود سناريو قتالي.</div>
+        <div class="law-item"><span class="law-number">21</span> أي عسكري يتواجد في المدينة بدون "باش" العمليات يعتبر مخالفاً.</div>
+        <div class="law-item"><span class="law-number">22</span> يمنع استخدام الطيران العسكري للتنزه أو التنقل الشخصي.</div>
+        <div class="law-item"><span class="law-number">23</span> قرار "قائد القوات" أو "الوزير" نهائي ولا يجوز الاعتراض عليه علناً.</div>
 
-    <div class="container">
-        <!-- قسم السيارات والقوات -->
-        <h2 class="section-title">مرآب الآليات العسكرية</h2>
+        <h2 class="section-header">توزيع المركبات حسب الرتب</h2>
         <div class="grid">
-            <div class="card">
-                <span class="car-rank">جندي مستجد - جندي أول</span>
-                • فورد فكتوريا <br> • كابرس
-            </div>
-            <div class="card">
-                <span class="car-rank">عريف - وكيل رقيب</span>
-                • كامري 2025 <br> • تاهو
-            </div>
-            <div class="card">
-                <span class="car-rank">رقيب - رئيس رقباء</span>
-                • باترول <br> • كدلك
-            </div>
-            <div class="card">
-                <span class="car-rank">ملازم - ملازم أول</span>
-                • تورس <br> • تشارجر
-            </div>
-            <div class="card">
-                <span class="car-rank">نقيب - رائد</span>
-                • لكزس <br> • سكويا
-            </div>
-            <div class="card">
-                <span class="car-rank">فريق - فريق أول</span>
-                • جي كلاس (G-Class)
-            </div>
+            <div class="rank-card"><b>مستجد - جندي أول:</b> فكتوريا، كابرس</div>
+            <div class="rank-card"><b>عريف - وكيل رقيب:</b> كامري 2025، تاهو</div>
+            <div class="rank-card"><b>رقيب - رئيس رقباء:</b> باترول، كدلك</div>
+            <div class="rank-card"><b>ملازم - ملازم أول:</b> تورس، تشارجر</div>
+            <div class="rank-card"><b>نقيب - رائد:</b> لكزس، سكويا</div>
+            <div class="rank-card"><b>فريق - فريق أول:</b> جي كلاس G-Class</div>
         </div>
 
-        <h2 class="section-title" style="background: var(--red);">آليات مخصصة (بإذن القيادة العليا)</h2>
-        <div class="card" style="border-right: 5px solid var(--red);">
-            يمنع استخراج الآليات التالية إلا بإذن (قائد القوات + الوزير ونوابهم):
-            <p>• يوكن/تاهو حرس الوزير • هليكوبتر • سكالـيد الحرس • طائرة استطلاع • ناقلات مدرعة (1،2،3) • F-22 & F-15 • قوارب عسكرية</p>
-            <p><b>سيارات السناريوهات:</b> ارمادا</p>
-            <p><b>سيارة الوزير:</b> روز رايز / BMW</p>
-        </div>
-
-        <!-- قسم الملابس والعهد -->
-        <h2 class="section-title">مركز التجهيزات والزي العسكري</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>زي الميدان (أفراد)</h3>
-                الكود: <span class="skin-code">59316417</span>
-            </div>
-            <div class="card">
-                <h3>زي المداهمات (أفراد)</h3>
-                الكود: <span class="skin-code">54516535</span>
-            </div>
-            <div class="card">
-                <h3>زي الضباط (ميدان/مداهمة)</h3>
-                الكود: <span class="skin-code">35889554</span>
-            </div>
-            <div class="card">
-                <h3>زي فرقة [RSLF] البرية</h3>
-                الكود: <span class="skin-code">21389850</span>
-            </div>
-        </div>
-
-        <!-- القوانين -->
-        <h2 class="section-title">دستور القوات المسلحة (23 بنداً)</h2>
-        <div class="card" style="font-size: 0.95rem; line-height: 1.8;">
-            1. الاحترام المتبادل وتمثيل الشخصية العسكرية (رول بلاي كامل). <br>
-            2. يمنع الاستهتار بالزي العسكري حتى مع الأصدقاء. <br>
-            3. التواجد الإلزامي في راديو العمليات (ديسكورد + مدينة). <br>
-            4. يمنع "الدفن" أو التأفيك نهائياً. <br>
-            5. المطاردة خارج لوس تتطلب إذن العمليات. <br>
-            6. لا يستلم العمليات إلا رتبة <b>وكيل رقيب</b> فأعلى. <br>
-            7. استخدام التيزر للمشاة فقط أو المركبات الواقفة. <br>
-            8. خدمة 14 يوماً إلزامية قبل الاستقالة. <br>
-            9. تسليم كافة العهد عند الاستقالة (عقوبتها سجن 15 شهر). <br>
-            10. طلب الهوية هو الإجراء الأول دائماً. <br>
-            ... (بقية القوانين مدمجة في قاعدة بيانات الموقع)
-        </div>
-
-        <!-- بروتوكولات القوات الجوية -->
-        <h2 class="section-title">أكاديمية الطيران والعمليات الجوية</h2>
-        <div class="card">
-            <p>• يمنع الإقلاع بدون إذن رسمي من مركز العمليات.</p>
-            <p>• الالتزام بارتفاع القفز المعتمد وفواصل زمنية (2-3 ثوانٍ) بين المظليين.</p>
-            <p>• <b>مهام الجوية:</b> الإسناد القتالي، الاستطلاع المتقدم، نقل الوحدات التكتيكية، حماية الأجواء السيادية.</p>
-        </div>
+        <h2 class="section-header">نظام العقوبات (المحاسبة)</h2>
+        <p>تخضع المخالفات للنظام التالي:</p>
+        <ul>
+            <li><b>الإنذار الأول:</b> توجيه شفهي وتسجيله في الملف.</li>
+            <li><b>الإنذار الثاني:</b> إيقاف عن العمل لمدة يومين (إنذار وظيفي).</li>
+            <li><b>الإنذار الثالث:</b> إيقاف لمدة 5-7 أيام مع احتمالية خفض الرتبة.</li>
+            <li><b>المخالفات الجسيمة:</b> طرد من الخدمة (بلاك لست).</li>
+        </ul>
     </div>
-
-    <footer>
-        <p class="rights">جميع الحقوق محفوظة لقائد القوات المسلحة: ! MV 🌟 L-1 A.B -454</p>
-        <p>برمجة وتطوير وزارة الدفاع - دولة مارفل 2026</p>
-    </footer>
 </div>
 
-<script>
-    function login() {
-        // محاكاة تسجيل الدخول
-        alert("تم التحقق من حساب الديسكورد بنجاح");
-        document.getElementById('pass-field').style.display = 'block';
-    }
-
-    function adminLogin() {
-        const pass = document.getElementById('admin-pass').value;
-        if(pass === "MARVEL2026") { // يمكنك تغيير كلمة المرور هنا
-            document.getElementById('login-overlay').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        } else {
-            alert("كلمة مرور المسؤولين خاطئة");
-        }
-    }
-</script>
+<footer>
+    <p>حقوق التطوير محفوظة لوزارة الدفاع - MARVEL RP © 2026</p>
+    <p>تحت إشراف: @! MV 🌟 L-1 A.B -454</p>
+</footer>
 
 </body>
 </html>
